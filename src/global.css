@@ -1,0 +1,18 @@
+:root {
+  --gray-E5: #e5e5e5;
+  --gray-E2: #e2e2e2;
+  --gray-F3: #f3f3f5;
+  --gray-D3: #D3D3D3;
+  --gray-7E: #7e7e7f;
+
+  --blue-63: #6366f1;
+  --blue-55: #5558e3;
+
+  --white: #ffffff;
+}
+
+#root {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
