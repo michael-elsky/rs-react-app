@@ -1,3 +1,4 @@
+import Button from '../Ui/Button/Button';
 import classes from './Search.module.css';
 
 import { Component } from 'react';
@@ -18,9 +19,9 @@ class Search extends Component {
           id="searchInput"
           placeholder="Search items..."
         />
-        <button className={classes['app__search-btn']} type="submit">
+        <Button className={classes['app__search-btn']} type="submit">
           Search
-        </button>
+        </Button>
       </form>
     );
   }
