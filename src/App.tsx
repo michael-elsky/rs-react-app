@@ -5,6 +5,7 @@ import { Component } from 'react';
 import Search from './components/Search';
 import Main from './components/Main';
 import Result from './components/Result';
+import TestError from './components/TestError/TestError';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
       <Main>
         <Search />
         <Result />
+        <TestError />
       </Main>
     );
   }

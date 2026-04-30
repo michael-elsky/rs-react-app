@@ -1,0 +1,23 @@
+.app__test-error {
+  outline: 1px solid var(--gray-E2);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.app__error-btn {
+  all: unset;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  width: 125px;
+  height: 48px;
+  background: var(--red-D3);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .app__error-btn:hover {
+    background: var(--red-DC);
+  }
+}
