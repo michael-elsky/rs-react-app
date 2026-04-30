@@ -22,15 +22,7 @@
 }
 
 .app__search-btn {
-  all: unset;
-  display: grid;
-  place-items: center;
-  color: var(--white);
-  width: 125px;
-  height: 48px;
   background: var(--blue-63);
-  border-radius: 10px;
-  cursor: pointer;
 }
 
 @media (hover: hover) {
