@@ -1,0 +1,13 @@
+.app__result {
+  height: 50vh;
+  outline: 1px solid var(--gray-E2);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.app__result-list {
+  outline: 1px solid var(--gray-E2);
+  list-style-type: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+}
