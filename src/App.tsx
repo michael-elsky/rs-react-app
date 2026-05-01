@@ -55,11 +55,11 @@ class App extends Component {
     const savedSearchValue = getLocalStorageData() || '';
 
     const enteredSearchValue = formData.get('searchInput') || '';
-    const trimmedSearchValue = enteredSearchValue.toString().trim();
+    const trimmedEnteredSearchValue = enteredSearchValue.toString().trim();
 
-    if (savedSearchValue !== trimmedSearchValue) {
-      saveLocalStorageData(trimmedSearchValue);
-      this.fetchFilms(trimmedSearchValue);
+    if (savedSearchValue !== trimmedEnteredSearchValue) {
+      saveLocalStorageData(trimmedEnteredSearchValue);
+      this.fetchFilms(trimmedEnteredSearchValue);
     }
   };
 
