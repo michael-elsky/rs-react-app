@@ -6,4 +6,5 @@ export interface DataProps {
 export interface ResultProps {
   data: DataProps[] | null;
   isLoading: boolean;
+  errorMessage: string;
 }

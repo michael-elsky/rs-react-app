@@ -1,4 +1,5 @@
 .app__result {
+  position: relative;
   height: 50vh;
   outline: 1px solid var(--gray-E2);
   border-radius: 14px;

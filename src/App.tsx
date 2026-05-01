@@ -16,9 +16,9 @@ import { fetchData } from './api/fetch';
 class App extends Component {
   state = {
     data: null,
-    error: null,
     isLoading: false,
-    savedInputValue: '',
+    errorMessage: '',
+    savedSearchValue: '',
   };
 
   fetchFilms = async (search: string) => {
@@ -26,14 +26,14 @@ class App extends Component {
       ? `https://swapi.py4e.com/api/films/?search=${search}`
       : 'https://swapi.py4e.com/api/films/';
 
-    this.setState({ isLoading: true, error: null });
+    this.setState({ isLoading: true, errorMessage: '' });
 
     try {
       const data = await fetchData(url);
 
       this.setState({ data: data.results });
     } catch (error) {
-      this.setState({ error: (error as Error).message });
+      this.setState({ errorMessage: (error as Error).message });
     } finally {
       this.setState({ isLoading: false });
     }
@@ -42,7 +42,7 @@ class App extends Component {
   componentDidMount(): void {
     const savedSearchValue = getLocalStorageData() || '';
 
-    this.setState({ savedInputValue: savedSearchValue });
+    this.setState({ savedSearchValue });
 
     this.fetchFilms(savedSearchValue);
   }
@@ -52,12 +52,12 @@ class App extends Component {
 
     const formData = new FormData(e.currentTarget);
 
-    const savedSearchValue = getLocalStorageData() || '';
-
     const enteredSearchValue = formData.get('searchInput') || '';
     const trimmedEnteredSearchValue = enteredSearchValue.toString().trim();
 
-    if (savedSearchValue !== trimmedEnteredSearchValue) {
+    if (this.state.savedSearchValue !== trimmedEnteredSearchValue) {
+      this.setState({ savedSearchValue: trimmedEnteredSearchValue });
+
       saveLocalStorageData(trimmedEnteredSearchValue);
       this.fetchFilms(trimmedEnteredSearchValue);
     }
@@ -67,10 +67,14 @@ class App extends Component {
     return (
       <Main>
         <Search
-          searchInputValue={this.state.savedInputValue}
+          searchInputValue={this.state.savedSearchValue}
           handleSubmit={this.handleSubmit}
         />
-        <Result data={this.state.data} isLoading={this.state.isLoading} />
+        <Result
+          data={this.state.data}
+          isLoading={this.state.isLoading}
+          errorMessage={this.state.errorMessage}
+        />
         <TestError />
       </Main>
     );
