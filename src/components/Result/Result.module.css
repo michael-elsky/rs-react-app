@@ -7,20 +7,14 @@
 }
 
 .app__result-list {
-  outline: 1px solid var(--gray-E2);
-  list-style-type: none;
-  border-radius: 14px;
-  padding: 12px 16px;
-}
-
-.app__result-list {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   height: 85%;
+  outline: 1px solid var(--gray-E2);
   list-style-type: none;
   padding: 10px;
+  border-radius: 14px;
   overflow-y: scroll;
 }
 
