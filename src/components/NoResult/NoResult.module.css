@@ -1,7 +1,0 @@
-.app__no-result {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  list-style-type: none;
-}

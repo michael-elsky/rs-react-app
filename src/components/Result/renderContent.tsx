@@ -1,6 +1,5 @@
 import ErrorDisplay from '../ErrorDisplay/ErrorDisplay';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import NoResult from '../NoResult/NoResult';
 import type { DataProps } from './Result.types';
 
 const renderContent = (
@@ -18,7 +17,7 @@ const renderContent = (
   }
 
   if (!data.length) {
-    return <NoResult />;
+    return <ErrorDisplay errorMessage="No results found" />;
   }
 
   return (
