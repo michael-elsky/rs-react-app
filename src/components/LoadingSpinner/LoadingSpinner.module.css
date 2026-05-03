@@ -1,0 +1,17 @@
+.app__spinner {
+  position: absolute;
+  inset: 0;
+  font-size: 0;
+  width: 40px;
+  height: 40px;
+  border: 5px dashed var(--gray-7E);
+  border-radius: 100%;
+  margin: auto;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  100% {
+    rotate: 360deg;
+  }
+}
