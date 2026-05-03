@@ -4,3 +4,18 @@
   display: grid;
   place-items: center;
 }
+
+.app__reset-error-btn {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+  margin-top: 53vh;
+}
+
+@media (hover: hover) {
+  .app__reset-error-btn:hover {
+    background: var(--blue-55);
+  }
+}
