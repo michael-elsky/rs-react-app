@@ -1,5 +1,5 @@
 export interface ErrorDisplayProps {
   errorMessage: string;
-  hasError: boolean;
-  onReset: () => void;
+  hasError?: boolean;
+  onReset?: () => void;
 }
