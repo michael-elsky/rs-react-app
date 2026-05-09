@@ -119,11 +119,25 @@ describe('App', () => {
     render(<App />);
 
     const input = screen.getByRole('textbox');
-    
+
     expect(input).toHaveValue(searchText);
     expect(fetchData).toHaveBeenCalledTimes(1);
     expect(fetchData).toHaveBeenCalledWith(
       expect.stringContaining('search=A New'),
     );
+  });
+
+  it('should not fetch or save if value did not change', async () => {
+    const searchText = 'A New';
+
+    vi.mocked(getLocalStorageData).mockReturnValueOnce(searchText);
+
+    render(<App />);
+
+    const button = screen.getByRole('button', { name: 'Search' });
+
+    await userEvent.click(button);
+
+    expect(saveLocalStorageData).not.toHaveBeenCalled();
   });
 });
