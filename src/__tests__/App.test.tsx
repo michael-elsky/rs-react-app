@@ -2,9 +2,18 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { fetchData } from '../api/fetch';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
+import userEvent from '@testing-library/user-event';
+import {
+  saveLocalStorageData,
+} from '../utils/localStorageData';
 
 vi.mock('../api/fetch', () => ({
   fetchData: vi.fn(),
+}));
+
+vi.mock('../utils/localStorageData', () => ({
+  getLocalStorageData: vi.fn(),
+  saveLocalStorageData: vi.fn(),
 }));
 
 describe('App', () => {
@@ -83,5 +92,21 @@ describe('App', () => {
     render(<App />);
 
     expect(fetchData).toHaveBeenCalledWith(url);
+  });
+
+  it('should save localStorage data', async () => {
+    const searchText = 'A New ';
+    const searchTextTrimmed = searchText.trim();
+
+    render(<App />);
+
+    const input = screen.getByRole('textbox');
+    const button = screen.getByRole('button', { name: 'Search' });
+
+    await userEvent.type(input, searchText);
+    await userEvent.click(button);
+
+    expect(saveLocalStorageData).toHaveBeenCalledWith(searchTextTrimmed);
+    expect(fetchData).toHaveBeenCalled();
   });
 });
