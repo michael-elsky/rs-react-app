@@ -140,4 +140,16 @@ describe('App', () => {
 
     expect(saveLocalStorageData).not.toHaveBeenCalled();
   });
+
+  it('should not call api when search is empty string', async () => {
+    vi.mocked(getLocalStorageData).mockReturnValueOnce('');
+
+    render(<App />);
+
+    const button = screen.getByRole('button', { name: 'Search' });
+
+    await userEvent.click(button);
+
+    expect(saveLocalStorageData).not.toHaveBeenCalled();
+  });
 });
