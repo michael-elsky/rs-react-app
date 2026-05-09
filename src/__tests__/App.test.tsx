@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import {
+  getLocalStorageData,
   saveLocalStorageData,
 } from '../utils/localStorageData';
 
@@ -108,5 +109,21 @@ describe('App', () => {
 
     expect(saveLocalStorageData).toHaveBeenCalledWith(searchTextTrimmed);
     expect(fetchData).toHaveBeenCalled();
+  });
+
+  it('input value should be equal to local storage data', async () => {
+    const searchText = 'A New';
+
+    vi.mocked(getLocalStorageData).mockReturnValueOnce(searchText);
+
+    render(<App />);
+
+    const input = screen.getByRole('textbox');
+    
+    expect(input).toHaveValue(searchText);
+    expect(fetchData).toHaveBeenCalledTimes(1);
+    expect(fetchData).toHaveBeenCalledWith(
+      expect.stringContaining('search=A New'),
+    );
   });
 });
