@@ -1,13 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import ErrorBoundary from '../components/ErrorBoundary';
-import { Component, type ReactNode } from 'react';
-
-class ErrorComponent extends Component {
-  render(): ReactNode {
-    throw new Error('Test error');
-  }
-}
+import TestError from '../components/TestError';
+import userEvent from '@testing-library/user-event';
 
 describe('ErrorBoundary', () => {
   it('', async () => {
@@ -20,15 +15,32 @@ describe('ErrorBoundary', () => {
 
     render(
       <ErrorBoundary>
-        <ErrorComponent />
+        <TestError />
       </ErrorBoundary>,
     );
 
-    const p = screen.getByText(errorMessageOnTheScreen);
-    const button = screen.getByRole('button', { name: 'Reset error' });
+    const buttonErrorBefore = screen.getByRole('button', {
+      name: 'Error Button',
+    });
 
+    await userEvent.click(buttonErrorBefore);
+
+    const p = await screen.findByText(errorMessageOnTheScreen);
+
+    expect(buttonErrorBefore).not.toBeInTheDocument();
     expect(p).toBeInTheDocument();
-    expect(button).toBeInTheDocument();
     expect(consoleError).toHaveBeenCalled();
+
+    const buttonResetError = await screen.findByRole('button', {
+      name: 'Reset error',
+    });
+
+    await userEvent.click(buttonResetError);
+
+    const buttonErrorAfter = await screen.findByRole('button', {
+      name: 'Error Button',
+    });
+
+    expect(buttonErrorAfter).toBeInTheDocument();
   });
 });
