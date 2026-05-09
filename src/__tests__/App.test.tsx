@@ -66,4 +66,22 @@ describe('App', () => {
 
     expect(p).toBeInTheDocument();
   });
+
+  it('Initial fetch. Fetch must called with valid url', () => {
+    const url = 'https://swapi.py4e.com/api/films/';
+    const data = {
+      results: [
+        {
+          title: 'Film',
+          opening_crawl: 'About film',
+        },
+      ],
+    };
+
+    vi.mocked(fetchData).mockResolvedValueOnce(data);
+
+    render(<App />);
+
+    expect(fetchData).toHaveBeenCalledWith(url);
+  });
 });
