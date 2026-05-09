@@ -31,7 +31,17 @@ describe('App', () => {
     expect(title).toBeInTheDocument();
   });
 
-  it.todo('Loading state. Loading spinner should be on the screen');
+  it('Loading state. Loading spinner should be on the screen', () => {
+    vi.mocked(fetchData).mockImplementation(() => {
+      return new Promise(() => {});
+    });
+
+    render(<App />);
+
+    const loadingSpinner = screen.getByRole('status', { name: 'loading' });
+
+    expect(loadingSpinner).toBeInTheDocument();
+  });
 
   it.todo('Error state. Error message should be on the screen');
 
