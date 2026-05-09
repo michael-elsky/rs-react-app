@@ -17,7 +17,7 @@ describe('App', () => {
       results: [
         {
           title: 'Film',
-          description: 'About film',
+          opening_crawl: 'About film',
         },
       ],
     };
