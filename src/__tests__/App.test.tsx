@@ -12,29 +12,26 @@ describe('App', () => {
     vi.clearAllMocks();
   });
 
-  it.todo(
-    'Successful fetch. After fetch data, title should be on the screen',
-    async () => {
-      const data = {
-        results: [
-          {
-            title: 'Film',
-            description: 'About film',
-          },
-        ],
-      };
+  it('Successful fetch. After fetch data, title should be on the screen', async () => {
+    const data = {
+      results: [
+        {
+          title: 'Film',
+          description: 'About film',
+        },
+      ],
+    };
 
-      vi.mocked(fetchData).mockResolvedValueOnce(data);
+    vi.mocked(fetchData).mockResolvedValueOnce(data);
 
-      render(<App />);
+    render(<App />);
 
-      const title = await screen.findByText('Film');
+    const title = await screen.findByText('Film');
 
-      expect(title).toBeInTheDocument();
-    },
-  );
+    expect(title).toBeInTheDocument();
+  });
 
-  it.todo('Loading state. Loading spinner should be on the screen', () => {
+  it('Loading state. Loading spinner should be on the screen', () => {
     vi.mocked(fetchData).mockImplementation(() => {
       return new Promise(() => {});
     });
@@ -49,7 +46,7 @@ describe('App', () => {
   it('Error state. Error message should be on the screen', async () => {
     const errorMessage = 'app error';
 
-    vi.mocked(fetchData).mockRejectedValue(new Error(errorMessage))
+    vi.mocked(fetchData).mockRejectedValue(new Error(errorMessage));
 
     render(<App />);
 
@@ -58,5 +55,15 @@ describe('App', () => {
     expect(p).toBeInTheDocument();
   });
 
-  it.todo('Empty results. Message should be on the screen');
+  it('Empty results. Message should be on the screen', async () => {
+    const message = 'No results found';
+
+    vi.mocked(fetchData).mockResolvedValueOnce({ results: [] });
+
+    render(<App />);
+
+    const p = await screen.findByText(message);
+
+    expect(p).toBeInTheDocument();
+  });
 });
