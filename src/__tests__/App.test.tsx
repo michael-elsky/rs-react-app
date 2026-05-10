@@ -77,7 +77,7 @@ describe('App', () => {
     expect(p).toBeInTheDocument();
   });
 
-  it('Initial fetch. Fetch must called with valid url', () => {
+  it('Initial fetch. Fetch must called with valid url', async () => {
     const url = 'https://swapi.py4e.com/api/films/';
     const data = {
       results: [
@@ -91,6 +91,8 @@ describe('App', () => {
     vi.mocked(fetchData).mockResolvedValueOnce(data);
 
     render(<App />);
+
+    await screen.findByRole('textbox');
 
     expect(fetchData).toHaveBeenCalledWith(url);
   });
@@ -118,7 +120,7 @@ describe('App', () => {
 
     render(<App />);
 
-    const input = screen.getByRole('textbox');
+    const input = await screen.findByRole('textbox');
 
     expect(input).toHaveValue(searchText);
     expect(fetchData).toHaveBeenCalledTimes(1);
