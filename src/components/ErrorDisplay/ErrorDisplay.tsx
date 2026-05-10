@@ -2,7 +2,7 @@ import classes from './ErrorDisplay.module.css';
 
 import { Component } from 'react';
 
-import type { ErrorDisplayProps } from './ErrorDisplay.type';
+import type { ErrorDisplayProps } from './ErrorDisplay.types';
 import Button from '../Ui/Button/Button';
 
 class ErrorDisplay extends Component<ErrorDisplayProps> {
