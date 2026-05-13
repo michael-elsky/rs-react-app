@@ -1,13 +1,9 @@
 import classes from './Main.module.css';
 
-import { Component } from 'react';
-
 import type { ChildrenProp } from '../../types/types';
 
-class Main extends Component<ChildrenProp> {
-  render() {
-    return <main className={classes.app}>{this.props.children}</main>;
-  }
-}
+const Main = ({ children }: ChildrenProp) => {
+  return <main className={classes.app}>{children}</main>;
+};
 
 export default Main;
