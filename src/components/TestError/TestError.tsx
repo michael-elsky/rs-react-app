@@ -1,35 +1,29 @@
 import classes from './TestError.module.css';
 
-import { Component } from 'react';
+import { useState } from 'react';
 
-import type { TestErrorState } from './TestError.types';
 import Button from '../Ui/Button/Button';
 
-class TestError extends Component {
-  state: TestErrorState = {
-    isError: false,
+const TestError = () => {
+  const [isError, setIsError] = useState(false);
+
+  const handleClick = () => {
+    setIsError(true);
   };
 
-  handleClick = () => {
-    this.setState({ isError: true });
-  };
+  if (isError) {
+    setIsError(false);
 
-  render() {
-    if (this.state.isError) {
-      throw new Error('Test error');
-    }
-
-    return (
-      <div className={classes['app__test-error']}>
-        <Button
-          className={classes['app__error-btn']}
-          onClick={this.handleClick}
-        >
-          Error Button
-        </Button>
-      </div>
-    );
+    throw new Error('Test error');
   }
-}
+
+  return (
+    <div className={classes['app__test-error']}>
+      <Button className={classes['app__error-btn']} onClick={handleClick}>
+        Error Button
+      </Button>
+    </div>
+  );
+};
 
 export default TestError;
