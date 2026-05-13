@@ -1,22 +1,19 @@
 import classes from './Result.module.css';
 
-import { Component } from 'react';
 import type { ResultProps } from './Result.types';
 import renderContent from './renderContent';
 
-class Result extends Component<ResultProps> {
-  render() {
-    const data = Array.isArray(this.props.data) ? this.props.data : [];
+const Result = ({ data, isLoading, errorMessage }: ResultProps) => {
+  const renderedContentData = Array.isArray(data) ? data : [];
 
-    const renderedContent = renderContent(
-      classes,
-      data,
-      this.props.isLoading,
-      this.props.errorMessage,
-    );
+  const renderedContent = renderContent(
+    classes,
+    renderedContentData,
+    isLoading,
+    errorMessage,
+  );
 
-    return <section className={classes.app__result}>{renderedContent}</section>;
-  }
-}
+  return <section className={classes.app__result}>{renderedContent}</section>;
+};
 
 export default Result;
