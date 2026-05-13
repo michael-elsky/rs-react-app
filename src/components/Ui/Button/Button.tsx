@@ -1,9 +1,10 @@
-import { Component, type ButtonHTMLAttributes } from 'react';
+import { type ButtonHTMLAttributes } from 'react';
 
-class Button extends Component<ButtonHTMLAttributes<HTMLButtonElement>> {
-  render() {
-    return <button {...this.props}>{this.props.children}</button>;
-  }
-}
+const Button = ({
+  children,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement>) => {
+  return <button {...props}>{children}</button>;
+};
 
 export default Button;
