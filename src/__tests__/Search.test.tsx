@@ -3,12 +3,19 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Search from '../components/Search';
+import { useState } from 'react';
 
 describe('Search', () => {
   it('renders search input and submit button', () => {
     const handleSubmit = vi.fn();
 
-    render(<Search handleSubmit={handleSubmit} searchInputValue={''} />);
+    render(
+      <Search
+        handleSubmit={handleSubmit}
+        searchInputValue={''}
+        handleChange={vi.fn()}
+      />,
+    );
 
     const input = screen.getByRole('textbox');
     const button = screen.getByRole('button', { name: 'Search' });
@@ -20,7 +27,19 @@ describe('Search', () => {
   it('calls submit handler when user submits the form', async () => {
     const handleSubmit = vi.fn();
 
-    render(<Search handleSubmit={handleSubmit} searchInputValue={''} />);
+    const Wrapper = () => {
+      const [value, setValue] = useState('');
+
+      return (
+        <Search
+          searchInputValue={value}
+          handleSubmit={handleSubmit}
+          handleChange={(e) => setValue(e.target.value)}
+        />
+      );
+    };
+
+    render(<Wrapper />);
 
     const input = screen.getByRole('textbox');
     const button = screen.getByRole('button', { name: 'Search' });

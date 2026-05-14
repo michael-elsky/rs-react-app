@@ -3,7 +3,11 @@ import classes from './Search.module.css';
 
 import type { SearchProps } from './Search.types';
 
-const Search = ({ handleSubmit, searchInputValue }: SearchProps) => {
+const Search = ({
+  handleSubmit,
+  handleChange,
+  searchInputValue,
+}: SearchProps) => {
   return (
     <form className={classes.app__form} onSubmit={handleSubmit}>
       <label className={classes.app__label} htmlFor="searchInput">
@@ -15,7 +19,8 @@ const Search = ({ handleSubmit, searchInputValue }: SearchProps) => {
         id="searchInput"
         name="searchInput"
         placeholder="Search items..."
-        defaultValue={searchInputValue}
+        value={searchInputValue}
+        onChange={handleChange}
       />
       <Button className={classes['app__search-btn']}>Search</Button>
     </form>

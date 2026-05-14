@@ -1,6 +1,11 @@
 import './global.css';
 
-import { Component, type SyntheticEvent } from 'react';
+import {
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type SyntheticEvent,
+} from 'react';
 
 import Search from './components/Search';
 import Main from './components/Main';
@@ -13,72 +18,65 @@ import {
 } from './utils/localStorageData';
 import { fetchData } from './api/fetch';
 
-class App extends Component {
-  state = {
-    data: null,
-    isLoading: false,
-    errorMessage: '',
-    savedSearchValue: '',
-  };
+const App = () => {
+  const initialSearchValue = getLocalStorageData() || '';
 
-  fetchFilms = async (search: string) => {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [inputValue, setInputValue] = useState(initialSearchValue);
+  const [savedSearchValue, setSavedSearchValue] = useState(initialSearchValue);
+
+  const fetchFilms = async (search: string) => {
     const url = search
       ? `https://swapi.py4e.com/api/films/?search=${search}`
       : 'https://swapi.py4e.com/api/films/';
 
-    this.setState({ isLoading: true, errorMessage: '' });
+    setIsLoading(true);
+    setErrorMessage('');
 
     try {
       const data = await fetchData(url);
 
-      this.setState({ data: data.results });
+      setData(data.results);
     } catch (error) {
-      this.setState({ errorMessage: (error as Error).message });
+      setErrorMessage((error as Error).message);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  componentDidMount(): void {
-    const savedSearchValue = getLocalStorageData() || '';
+  useEffect(() => {
+    fetchFilms(savedSearchValue);
+  }, [savedSearchValue]);
 
-    this.setState({ savedSearchValue });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
 
-    this.fetchFilms(savedSearchValue);
-  }
-
-  handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
+    const trimmedEnteredSearchValue = inputValue.trim();
 
-    const enteredSearchValue = formData.get('searchInput') || '';
-    const trimmedEnteredSearchValue = enteredSearchValue.toString().trim();
-
-    if (this.state.savedSearchValue !== trimmedEnteredSearchValue) {
-      this.setState({ savedSearchValue: trimmedEnteredSearchValue });
+    if (savedSearchValue !== trimmedEnteredSearchValue) {
+      setSavedSearchValue(trimmedEnteredSearchValue);
 
       saveLocalStorageData(trimmedEnteredSearchValue);
-      this.fetchFilms(trimmedEnteredSearchValue);
     }
   };
 
-  render() {
-    return (
-      <Main>
-        <Search
-          searchInputValue={this.state.savedSearchValue}
-          handleSubmit={this.handleSubmit}
-        />
-        <Result
-          data={this.state.data}
-          isLoading={this.state.isLoading}
-          errorMessage={this.state.errorMessage}
-        />
-        <TestError />
-      </Main>
-    );
-  }
-}
+  return (
+    <Main>
+      <Search
+        searchInputValue={inputValue}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+      />
+      <Result data={data} isLoading={isLoading} errorMessage={errorMessage} />
+      <TestError />
+    </Main>
+  );
+};
 
 export default App;
