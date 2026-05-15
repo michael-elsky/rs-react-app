@@ -7,7 +7,6 @@ const Result = ({ data, isLoading, errorMessage }: ResultProps) => {
   const renderedContentData = Array.isArray(data) ? data : [];
 
   const renderedContent = renderContent(
-    classes,
     renderedContentData,
     isLoading,
     errorMessage,
