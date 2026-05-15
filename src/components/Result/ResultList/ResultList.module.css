@@ -9,10 +9,13 @@
   border-radius: 14px;
   overflow-y: scroll;
 }
+.app__result-list--shrink {
+  width: 40%;
+}
 
 .app__result-item {
-  width: 240px;
-  height: 360px;
+  width: 100%;
+  height: auto;
   outline: 1px solid var(--gray-E2);
   border-radius: 14px;
   padding: 10px;
@@ -31,6 +34,7 @@
 }
 
 .app__result-description {
+  font-size: 0;
   padding: 0;
   margin: 0;
   margin: auto;
