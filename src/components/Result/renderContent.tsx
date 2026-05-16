@@ -1,4 +1,3 @@
-import { Outlet } from 'react-router-dom';
 import ErrorDisplay from '../ErrorDisplay/ErrorDisplay';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import type { DataProps } from './Result.types';
@@ -24,7 +23,6 @@ const renderContent = (
   return (
     <>
       <ResultList data={data} />
-      <Outlet />
     </>
   );
 };

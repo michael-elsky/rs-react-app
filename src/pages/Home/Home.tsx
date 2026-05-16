@@ -6,7 +6,6 @@ import {
 } from 'react';
 
 import Search from '../../components/Search';
-import Main from '../../components/Main';
 import Result from '../../components/Result';
 import TestError from '../../components/TestError';
 
@@ -15,6 +14,7 @@ import {
   saveLocalStorageData,
 } from '../../utils/localStorageData';
 import { fetchData } from '../../api/fetch';
+import { Outlet } from 'react-router-dom';
 
 const Home = () => {
   const initialSearchValue = getLocalStorageData() || '';
@@ -65,15 +65,19 @@ const Home = () => {
   };
 
   return (
-    <Main>
+    <>
       <Search
         searchInputValue={inputValue}
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
-      <Result data={data} isLoading={isLoading} errorMessage={errorMessage} />
+
+      <Result data={data} isLoading={isLoading} errorMessage={errorMessage}>
+        <Outlet />
+      </Result>
+
       <TestError />
-    </Main>
+    </>
   );
 };
 

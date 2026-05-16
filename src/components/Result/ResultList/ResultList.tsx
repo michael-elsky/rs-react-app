@@ -2,7 +2,6 @@ import type { DataProps } from '../Result.types';
 import classes from './ResultList.module.css';
 
 const ResultList = ({ data }: { data: DataProps[] }) => {
-  console.log(data);
   return (
     <ul className={classes['app__result-list']}>
       {data.map((item) => {

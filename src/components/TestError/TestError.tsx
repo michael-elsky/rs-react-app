@@ -12,8 +12,6 @@ const TestError = () => {
   };
 
   if (isError) {
-    setIsError(false);
-
     throw new Error('Test error');
   }
 
