@@ -1,82 +1,26 @@
-import './global.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import {
-  useEffect,
-  useState,
-  type ChangeEvent,
-  type SyntheticEvent,
-} from 'react';
+import Home from './pages/Home/Home';
+import Layout from './pages/Layout/Layout';
+import Page404 from './pages/404/Page404';
+import About from './pages/About/About';
 
-import Search from './components/Search';
-import Main from './components/Main';
-import Result from './components/Result';
-import TestError from './components/TestError';
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'films/:itemId', element: <Home /> },
+      { path: 'about', element: <About /> },
+    ],
+  },
 
-import {
-  getLocalStorageData,
-  saveLocalStorageData,
-} from './utils/localStorageData';
-import { fetchData } from './api/fetch';
+  { path: '*', element: <Page404 /> },
+]);
 
 const App = () => {
-  const initialSearchValue = getLocalStorageData() || '';
-
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [inputValue, setInputValue] = useState(initialSearchValue);
-  const [savedSearchValue, setSavedSearchValue] = useState(initialSearchValue);
-
-  const fetchFilms = async (search: string) => {
-    const url = search
-      ? `https://swapi.py4e.com/api/films/?search=${search}`
-      : 'https://swapi.py4e.com/api/films/';
-
-    setIsLoading(true);
-    setErrorMessage('');
-
-    try {
-      const data = await fetchData(url);
-
-      setData(data.results);
-    } catch (error) {
-      setErrorMessage((error as Error).message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchFilms(savedSearchValue);
-  }, [savedSearchValue]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const trimmedEnteredSearchValue = inputValue.trim();
-
-    if (savedSearchValue !== trimmedEnteredSearchValue) {
-      setSavedSearchValue(trimmedEnteredSearchValue);
-
-      saveLocalStorageData(trimmedEnteredSearchValue);
-    }
-  };
-
-  return (
-    <Main>
-      <Search
-        searchInputValue={inputValue}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-      />
-      <Result data={data} isLoading={isLoading} errorMessage={errorMessage} />
-      <TestError />
-    </Main>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

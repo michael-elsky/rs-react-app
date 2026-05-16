@@ -1,4 +1,4 @@
-import classes from './ResultDetail.module.css';
+import classes from './ResultDetails.module.css';
 
 const ResultDetails = () => {
   return (
