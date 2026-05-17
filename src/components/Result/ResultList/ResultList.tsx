@@ -6,7 +6,7 @@ const ResultList = ({ data }: { data: DataProps[] }) => {
   return (
     <ul className={classes['app__result-list']}>
       {data.map((item) => {
-        const description = item.opening_crawl;
+        const filmId = item.url?.split('/').slice(-2, -1)[0];
 
         return (
           <li className={classes['app__result-item']} key={item.title}>
@@ -17,12 +17,9 @@ const ResultList = ({ data }: { data: DataProps[] }) => {
                     ? `${classes['app__result-link']} ${classes['app__result-link--active']}`
                     : classes['app__result-link']
                 }
-                to={`films/${item.episode_id}`}
+                to={`films/${filmId}`}
               >
                 <h1 className={classes['app__result-title']}>{item.title}</h1>
-                <p className={classes['app__result-description']}>
-                  {description}
-                </p>
               </NavLink>
             </section>
           </li>

@@ -4,6 +4,7 @@ export interface DataProps {
   episode_id: number;
   title: string;
   opening_crawl: string;
+  url?: string;
 }
 
 export interface ResultProps extends ChildrenProp {

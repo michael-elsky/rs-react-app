@@ -1,5 +1,4 @@
 import {
-  useEffect,
   useState,
   type ChangeEvent,
   type SyntheticEvent,
@@ -13,40 +12,18 @@ import {
   getLocalStorageData,
   saveLocalStorageData,
 } from '../../utils/localStorageData';
-import { fetchData } from '../../api/fetch';
 import { Outlet } from 'react-router-dom';
+import useFetchFilmsList from '../../hooks/useFetchList';
 
 const Home = () => {
   const initialSearchValue = getLocalStorageData() || '';
 
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [inputValue, setInputValue] = useState(initialSearchValue);
   const [savedSearchValue, setSavedSearchValue] = useState(initialSearchValue);
+  const [inputValue, setInputValue] = useState(initialSearchValue);
 
-  const fetchFilms = async (search: string) => {
-    const url = search
-      ? `https://swapi.py4e.com/api/films/?search=${search}`
-      : 'https://swapi.py4e.com/api/films/';
-
-    setIsLoading(true);
-    setErrorMessage('');
-
-    try {
-      const data = await fetchData(url);
-
-      setData(data.results);
-    } catch (error) {
-      setErrorMessage((error as Error).message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchFilms(savedSearchValue);
-  }, [savedSearchValue]);
+  const { data, isLoading, errorMessage } = useFetchFilmsList(
+    savedSearchValue,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -73,7 +50,7 @@ const Home = () => {
       />
 
       <Result data={data} isLoading={isLoading} errorMessage={errorMessage}>
-        <Outlet />
+        <Outlet context={{ data }} />
       </Result>
 
       <TestError />
