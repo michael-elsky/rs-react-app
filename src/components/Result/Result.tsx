@@ -1,15 +1,17 @@
 import classes from './Result.module.css';
 
 import type { ResultProps } from './Result.types';
-import renderContent from './renderContent';
+import ResultList from './ResultList/ResultList';
+import RenderContent from './RenderContent';
 
 const Result = ({ data, isLoading, errorMessage, children }: ResultProps) => {
   const renderedContentData = Array.isArray(data) ? data : [];
 
-  const renderedContent = renderContent(
-    renderedContentData,
+  const renderedContent = RenderContent(
+    <ResultList data={renderedContentData} />,
     isLoading,
     errorMessage,
+    renderedContentData,
   );
 
   return (

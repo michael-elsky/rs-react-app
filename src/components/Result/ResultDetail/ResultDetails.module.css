@@ -1,13 +1,9 @@
 .app__result-detail {
-  width: 0;
-  overflow: hidden;
-}
-
-.app__result-detail--active {
   width: 60%;
   height: 85%;
   outline: 1px solid var(--gray-E2);
   padding: 10px;
   border-radius: 14px;
   margin: 16px 0;
+  overflow: scroll;
 }

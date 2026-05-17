@@ -1,10 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useMatch } from 'react-router-dom';
 import type { DataProps } from '../Result.types';
 import classes from './ResultList.module.css';
 
 const ResultList = ({ data }: { data: DataProps[] }) => {
+  const isDetailsPage = useMatch('/films/:itemId');
+
+  let listClassName = classes['app__result-list'];
+
+  if (isDetailsPage) {
+    listClassName = `${classes['app__result-list']} ${classes['app__result-list--shrink']}`;
+  }
+
   return (
-    <ul className={classes['app__result-list']}>
+    <ul className={listClassName}>
       {data.map((item) => {
         const filmId = item.url?.split('/').slice(-2, -1)[0];
 
