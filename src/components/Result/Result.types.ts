@@ -11,4 +11,5 @@ export interface ResultProps extends ChildrenProp {
   data: DataProps[] | null;
   isLoading: boolean;
   errorMessage: string;
+  onClose: () => void;
 }

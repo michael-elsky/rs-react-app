@@ -4,11 +4,17 @@ import type { ResultProps } from './Result.types';
 import ResultList from './ResultList/ResultList';
 import RenderContent from './RenderContent';
 
-const Result = ({ data, isLoading, errorMessage, children }: ResultProps) => {
+const Result = ({
+  data,
+  isLoading,
+  errorMessage,
+  children,
+  onClose,
+}: ResultProps) => {
   const renderedContentData = Array.isArray(data) ? data : [];
 
   const renderedContent = RenderContent(
-    <ResultList data={renderedContentData} />,
+    <ResultList data={renderedContentData} onClose={onClose} />,
     isLoading,
     errorMessage,
     renderedContentData,

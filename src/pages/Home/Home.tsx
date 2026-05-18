@@ -8,7 +8,7 @@ import {
   getLocalStorageData,
   saveLocalStorageData,
 } from '../../utils/localStorageData';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import useFetchFilmsList from '../../hooks/useFetchList';
 import usePagination from '../../hooks/Pagination/usePagination';
 import Pagination from '../../components/Pagination/Pagination';
@@ -19,6 +19,7 @@ const Home = () => {
   const [savedSearchValue, setSavedSearchValue] = useState(initialSearchValue);
   const [inputValue, setInputValue] = useState(initialSearchValue);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const { data, isLoading, errorMessage } = useFetchFilmsList(savedSearchValue);
 
@@ -44,6 +45,12 @@ const Home = () => {
     }
   };
 
+  const handleCloseDetails = () => {
+    const currentPage = searchParams.get('page');
+
+    navigate(`/?page=${currentPage}`);
+  };
+
   return (
     <>
       <Search
@@ -56,6 +63,7 @@ const Home = () => {
         data={paginatedData}
         isLoading={isLoading}
         errorMessage={errorMessage}
+        onClose={handleCloseDetails}
       >
         <Outlet context={{ data }} />
       </Result>

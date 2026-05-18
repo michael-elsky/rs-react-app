@@ -1,8 +1,8 @@
 import { NavLink, useMatch, useSearchParams } from 'react-router-dom';
-import type { DataProps } from '../Result.types';
 import classes from './ResultList.module.css';
+import type { ResultListProps } from './ResultList.types';
 
-const ResultList = ({ data }: { data: DataProps[] }) => {
+const ResultList = ({ data, onClose }: ResultListProps) => {
   const isDetailsPage = useMatch('/films/:itemId');
   const [searchParams] = useSearchParams();
 
@@ -15,7 +15,14 @@ const ResultList = ({ data }: { data: DataProps[] }) => {
   }
 
   return (
-    <ul className={listClassName}>
+    <ul
+      className={listClassName}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
       {data.map((item) => {
         const filmId = item.url?.split('/').slice(-2, -1)[0];
 
