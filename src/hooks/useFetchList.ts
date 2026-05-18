@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { fetchData } from '../api/fetch';
+import type { DataProps } from '../components/Result/Result.types';
 
 const useFetchFilmsList = (savedSearchValue: string) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<DataProps[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -17,7 +18,6 @@ const useFetchFilmsList = (savedSearchValue: string) => {
 
       try {
         const data = await fetchData(url);
-        console.log(data);
 
         setData(data.results || data);
       } catch (error) {

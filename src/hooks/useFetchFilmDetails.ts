@@ -10,7 +10,6 @@ const useFetchFilmDetails = (itemId: string) => {
   useEffect(() => {
     const fetchFilms = async (itemId: string) => {
       const url = `https://swapi.py4e.com/api/films/${itemId}`;
-      console.log(url);
 
       setIsLoading(true);
       setErrorMessage('');

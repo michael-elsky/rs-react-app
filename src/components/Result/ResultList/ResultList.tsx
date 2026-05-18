@@ -1,9 +1,12 @@
-import { NavLink, useMatch } from 'react-router-dom';
+import { NavLink, useMatch, useSearchParams } from 'react-router-dom';
 import type { DataProps } from '../Result.types';
 import classes from './ResultList.module.css';
 
 const ResultList = ({ data }: { data: DataProps[] }) => {
   const isDetailsPage = useMatch('/films/:itemId');
+  const [searchParams] = useSearchParams();
+
+  const currentPage = searchParams.get('page') || 1;
 
   let listClassName = classes['app__result-list'];
 
@@ -25,7 +28,7 @@ const ResultList = ({ data }: { data: DataProps[] }) => {
                     ? `${classes['app__result-link']} ${classes['app__result-link--active']}`
                     : classes['app__result-link']
                 }
-                to={`films/${filmId}`}
+                to={`/films/${filmId}?page=${currentPage}`}
               >
                 <h1 className={classes['app__result-title']}>{item.title}</h1>
               </NavLink>

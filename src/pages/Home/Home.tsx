@@ -1,8 +1,4 @@
-import {
-  useState,
-  type ChangeEvent,
-  type SyntheticEvent,
-} from 'react';
+import { useState, type ChangeEvent, type SyntheticEvent } from 'react';
 
 import Search from '../../components/Search';
 import Result from '../../components/Result';
@@ -12,18 +8,23 @@ import {
   getLocalStorageData,
   saveLocalStorageData,
 } from '../../utils/localStorageData';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import useFetchFilmsList from '../../hooks/useFetchList';
+import usePagination from '../../hooks/Pagination/usePagination';
+import Pagination from '../../components/Pagination/Pagination';
 
 const Home = () => {
   const initialSearchValue = getLocalStorageData() || '';
 
   const [savedSearchValue, setSavedSearchValue] = useState(initialSearchValue);
   const [inputValue, setInputValue] = useState(initialSearchValue);
+  const navigate = useNavigate();
 
-  const { data, isLoading, errorMessage } = useFetchFilmsList(
-    savedSearchValue,
-  );
+  const { data, isLoading, errorMessage } = useFetchFilmsList(savedSearchValue);
+
+  const dataChecked = Array.isArray(data) ? data : [];
+
+  const { paginatedData, handleNext, handlePrev } = usePagination(dataChecked);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -38,6 +39,8 @@ const Home = () => {
       setSavedSearchValue(trimmedEnteredSearchValue);
 
       saveLocalStorageData(trimmedEnteredSearchValue);
+
+      navigate('/');
     }
   };
 
@@ -49,9 +52,15 @@ const Home = () => {
         handleChange={handleChange}
       />
 
-      <Result data={data} isLoading={isLoading} errorMessage={errorMessage}>
+      <Result
+        data={paginatedData}
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+      >
         <Outlet context={{ data }} />
       </Result>
+
+      <Pagination onNext={handleNext} onPrev={handlePrev} />
 
       <TestError />
     </>

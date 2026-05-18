@@ -9,7 +9,6 @@ const RenderContent = (
   errorMessage?: string,
   data?: DataProps[] | DataProps | null,
 ) => {
-  console.log(data);
   if (isLoading) {
     return <LoadingSpinner />;
   }
