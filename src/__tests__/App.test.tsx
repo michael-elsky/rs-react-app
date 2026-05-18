@@ -7,6 +7,8 @@ import {
   getLocalStorageData,
   saveLocalStorageData,
 } from '../utils/localStorageData';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
+import Page404 from '../pages/404/Page404';
 
 vi.mock('../api/fetch', () => ({
   fetchData: vi.fn(),
@@ -153,5 +155,44 @@ describe('App', () => {
     await userEvent.click(button);
 
     expect(saveLocalStorageData).not.toHaveBeenCalled();
+  });
+
+  it('should be Reset error button', async () => {
+    render(<App />);
+
+    const errorBtnBefore = screen.getByRole('button', { name: 'Error Button' });
+    expect(errorBtnBefore).toBeInTheDocument();
+
+    await userEvent.click(errorBtnBefore);
+
+    const resetErrorBtn = screen.getByRole('button', { name: 'Reset error' });
+    expect(resetErrorBtn).toBeInTheDocument();
+
+    await userEvent.click(resetErrorBtn);
+
+    const errorBtnAfter = screen.getByRole('button', { name: 'Error Button' });
+    expect(errorBtnAfter).toBeInTheDocument();
+  });
+
+  it('should show 404 page on unknown route', () => {
+    const router = createMemoryRouter(
+      [
+        {
+          path: '/',
+          element: <App />,
+        },
+        {
+          path: '*',
+          element: <Page404 />,
+        },
+      ],
+      {
+        initialEntries: ['/this-route-does-not-exist'],
+      },
+    );
+
+    render(<RouterProvider router={router} />);
+
+    expect(screen.getByText('Page 404')).toBeInTheDocument();
   });
 });
