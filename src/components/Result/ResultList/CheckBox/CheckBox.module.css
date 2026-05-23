@@ -1,0 +1,9 @@
+.app__select-form {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.app__select-form-label {
+  font-size: 0;
+}
