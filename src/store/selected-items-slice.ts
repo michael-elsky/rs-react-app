@@ -25,6 +25,10 @@ const selectedItemsSlice = createSlice({
         );
       }
     },
+
+    unSelectAll(state) {
+      state.items = [];
+    },
   },
 });
 
