@@ -5,13 +5,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 
 const ThemeToggle = () => {
-  const ctx = useContext(ThemeContext);
-
-  if (!ctx) {
-    throw new Error('Error context');
-  }
-
-  const { theme, toggleTheme } = ctx;
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const classNames =
     theme === 'light'

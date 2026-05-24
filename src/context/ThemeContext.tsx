@@ -3,9 +3,12 @@ import { createContext, useState } from 'react';
 import type { ChildrenProp } from '../types/types';
 import type { Theme, ThemeContextType } from './ThemeContext.types';
 
-export const ThemeContext = createContext<ThemeContextType | undefined>(
-  undefined,
-);
+const initialValue: ThemeContextType = {
+  theme: 'light',
+  toggleTheme: () => {},
+};
+
+export const ThemeContext = createContext<ThemeContextType>(initialValue);
 
 const ThemeContextProvider = ({ children }: ChildrenProp) => {
   const [theme, setTheme] = useState<Theme>('light');
