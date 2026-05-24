@@ -9,6 +9,8 @@ import {
 } from '../utils/localStorageData';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import Page404 from '../pages/404/Page404';
+import { Provider } from 'react-redux';
+import store from '../store';
 
 vi.mock('../api/fetch', () => ({
   fetchData: vi.fn(),
@@ -36,7 +38,11 @@ describe('App', () => {
 
     vi.mocked(fetchData).mockResolvedValueOnce(data);
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const title = await screen.findByText('Film');
 
@@ -48,7 +54,11 @@ describe('App', () => {
       return new Promise(() => {});
     });
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const loadingSpinner = screen.getByRole('status', { name: 'loading' });
 
@@ -60,7 +70,11 @@ describe('App', () => {
 
     vi.mocked(fetchData).mockRejectedValue(new Error(errorMessage));
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const p = await screen.findByText(errorMessage);
 
@@ -72,7 +86,11 @@ describe('App', () => {
 
     vi.mocked(fetchData).mockResolvedValueOnce({ results: [] });
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const p = await screen.findByText(message);
 
@@ -92,7 +110,11 @@ describe('App', () => {
 
     vi.mocked(fetchData).mockResolvedValueOnce(data);
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     await screen.findByRole('textbox');
 
@@ -103,7 +125,11 @@ describe('App', () => {
     const searchText = 'A New ';
     const searchTextTrimmed = searchText.trim();
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const input = screen.getByRole('textbox');
     const button = screen.getByRole('button', { name: 'Search' });
@@ -120,7 +146,11 @@ describe('App', () => {
 
     vi.mocked(getLocalStorageData).mockReturnValueOnce(searchText);
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const input = await screen.findByRole('textbox');
 
@@ -136,7 +166,11 @@ describe('App', () => {
 
     vi.mocked(getLocalStorageData).mockReturnValueOnce(searchText);
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const button = screen.getByRole('button', { name: 'Search' });
 
@@ -148,7 +182,11 @@ describe('App', () => {
   it('should not call api when search is empty string', async () => {
     vi.mocked(getLocalStorageData).mockReturnValueOnce('');
 
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const button = screen.getByRole('button', { name: 'Search' });
 
@@ -158,7 +196,11 @@ describe('App', () => {
   });
 
   it('should be Reset error button', async () => {
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
 
     const errorBtnBefore = screen.getByRole('button', { name: 'Error Button' });
     expect(errorBtnBefore).toBeInTheDocument();
