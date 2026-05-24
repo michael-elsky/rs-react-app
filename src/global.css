@@ -19,7 +19,7 @@
   --toggle-hover-shadow: rgba(0, 0, 0, 0.1);
 }
 
-body.dark {
+[data-theme='dark'] {
   --bg-color: #18181b;
   --surface-color: #27272a;
   --text-color: #f4f4f5;
