@@ -1,7 +1,9 @@
+import classes from './About.module.css';
+
 const About = () => {
   return (
     <section>
-      <h1>Michael Elsky</h1>
+      <h1 className={classes['app__about-header']}>Michael Elsky</h1>
       <p>
         <a
           href="https://github.com/michael-elsky"
