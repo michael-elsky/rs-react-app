@@ -3,5 +3,6 @@
   flex-direction: column;
   gap: 25px;
   width: clamp(260px, 80vw, 860px);
+  min-height: 55vh;
   margin-inline: auto;
 }

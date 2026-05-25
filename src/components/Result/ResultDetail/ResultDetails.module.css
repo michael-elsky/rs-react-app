@@ -6,4 +6,5 @@
   border-radius: 14px;
   margin: 16px 0;
   overflow: scroll;
+  color: var(--gray-7E);
 }

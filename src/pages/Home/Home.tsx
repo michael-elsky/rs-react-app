@@ -12,6 +12,9 @@ import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import useFetchFilmsList from '../../hooks/useFetchList';
 import usePagination from '../../hooks/Pagination/usePagination';
 import Pagination from '../../components/Pagination/Pagination';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store';
+import SelectedItems from '../../components/SelectedItems/SelectedItems';
 
 const Home = () => {
   const initialSearchValue = getLocalStorageData() || '';
@@ -26,6 +29,10 @@ const Home = () => {
   const dataChecked = Array.isArray(data) ? data : [];
 
   const { paginatedData, handleNext, handlePrev } = usePagination(dataChecked);
+
+  const selectedItems = useSelector(
+    (state: RootState) => state.selectedItems.items,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -69,6 +76,8 @@ const Home = () => {
       </Result>
 
       <Pagination onNext={handleNext} onPrev={handlePrev} />
+
+      {selectedItems.length > 0 && <SelectedItems />}
 
       <TestError />
     </>

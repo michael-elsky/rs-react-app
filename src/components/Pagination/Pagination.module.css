@@ -1,7 +1,9 @@
 .app__pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 1rem;
+  color: var(--gray-7E);
 }
 
 .app__pagination-btn-prev,

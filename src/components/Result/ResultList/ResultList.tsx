@@ -1,6 +1,7 @@
 import { NavLink, useMatch, useSearchParams } from 'react-router-dom';
 import classes from './ResultList.module.css';
 import type { ResultListProps } from './ResultList.types';
+import CheckBox from './CheckBox/CheckBox';
 
 const ResultList = ({ data, onClose }: ResultListProps) => {
   const isDetailsPage = useMatch('/films/:itemId');
@@ -29,6 +30,8 @@ const ResultList = ({ data, onClose }: ResultListProps) => {
         return (
           <li className={classes['app__result-item']} key={item.title}>
             <section className={classes['app__result-section']}>
+              <CheckBox item={item} />
+
               <NavLink
                 className={({ isActive }) =>
                   isActive
