@@ -28,7 +28,7 @@
 }
 
 .app__toggle-theme--dark {
-  outline: 1px solid var(--gray-26);
+  outline: 1px solid var(--white);
   background: var(--gray-26);
 }
 
