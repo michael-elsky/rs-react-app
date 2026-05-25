@@ -26,16 +26,16 @@ describe('App', () => {
     vi.clearAllMocks();
   });
 
-  it('Successful fetch. After fetch data, title should be on the screen', async () => {
-    const data = {
-      results: [
-        {
-          title: 'Film',
-          opening_crawl: 'About film',
-        },
-      ],
-    };
+  const data = {
+    results: [
+      {
+        title: 'Film',
+        opening_crawl: 'About film',
+      },
+    ],
+  };
 
+  it('Successful fetch. After fetch data, title should be on the screen', async () => {
     vi.mocked(fetchData).mockResolvedValueOnce(data);
 
     render(
@@ -236,5 +236,32 @@ describe('App', () => {
     render(<RouterProvider router={router} />);
 
     expect(screen.getByText('Page 404')).toBeInTheDocument();
+  });
+
+  it('should render SelectedItems after selecting checkbox', async () => {
+    const buttonUnSelectText = 'Unselect all';
+    const buttonDownloadText = 'Download';
+
+    vi.mocked(fetchData).mockResolvedValueOnce(data);
+
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    );
+
+    const checkBoxes = await screen.findAllByRole('checkbox');
+
+    await userEvent.click(checkBoxes[0]);
+
+    const unSelectBtn = screen.getByRole('button', {
+      name: buttonUnSelectText,
+    });
+    const downloadBtn = screen.getByRole('button', {
+      name: buttonDownloadText,
+    });
+
+    expect(unSelectBtn).toBeInTheDocument();
+    expect(downloadBtn).toBeInTheDocument();
   });
 });
