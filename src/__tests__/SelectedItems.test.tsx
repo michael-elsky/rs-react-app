@@ -1,17 +1,17 @@
-import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import { userEvent } from '@testing-library/user-event'
 
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
 
-import { fetchData } from '../api/fetch';
-import App from '../App';
-import selectedItemsReducer from '../store/selected-items-slice';
-import { configureStore } from '@reduxjs/toolkit';
+import { fetchData } from '../api/fetch'
+import App from '../App'
+import selectedItemsReducer from '../store/selected-items-slice'
+import { configureStore } from '@reduxjs/toolkit'
 
 vi.mock('../api/fetch', () => ({
   fetchData: vi.fn(),
-}));
+}))
 
 describe('SelectedItems', () => {
   const data = {
@@ -27,72 +27,72 @@ describe('SelectedItems', () => {
         url: 'https://swapi.dev/api/films/2/',
       },
     ],
-  };
+  }
 
   const setup = async () => {
     const testStore = configureStore({
       reducer: {
         selectedItems: selectedItemsReducer,
       },
-    });
+    })
 
-    vi.mocked(fetchData).mockResolvedValueOnce(data);
+    vi.mocked(fetchData).mockResolvedValueOnce(data)
 
     render(
       <Provider store={testStore}>
         <App />
       </Provider>,
-    );
+    )
 
-    const checkBoxes = await screen.findAllByRole('checkbox');
+    const checkBoxes = await screen.findAllByRole('checkbox')
 
-    await userEvent.click(checkBoxes[0]);
-    await userEvent.click(checkBoxes[1]);
+    await userEvent.click(checkBoxes[0])
+    await userEvent.click(checkBoxes[1])
 
     return {
       checkBoxes,
-    };
-  };
+    }
+  }
 
   it('should show correct selected items count', async () => {
-    await setup();
+    await setup()
 
     const unSelectBtn = screen.getByRole('button', {
       name: 'Unselect all',
-    });
+    })
     const downloadBtn = screen.getByRole('button', {
       name: 'Download',
-    });
-    const countText = screen.getByText(`Selected: 2`);
+    })
+    const countText = screen.getByText(`Selected: 2`)
 
-    expect(unSelectBtn).toBeInTheDocument();
-    expect(downloadBtn).toBeInTheDocument();
-    expect(countText).toBeInTheDocument();
-  });
+    expect(unSelectBtn).toBeInTheDocument()
+    expect(downloadBtn).toBeInTheDocument()
+    expect(countText).toBeInTheDocument()
+  })
 
   it('should unselect all items', async () => {
-    const { checkBoxes } = await setup();
+    const { checkBoxes } = await setup()
 
     const unSelectBtn = screen.getByRole('button', {
       name: 'Unselect all',
-    });
+    })
 
-    await userEvent.click(unSelectBtn);
+    await userEvent.click(unSelectBtn)
 
     checkBoxes.forEach((checkBox) => {
-      expect(checkBox).not.toBeChecked();
-    });
-  });
+      expect(checkBox).not.toBeChecked()
+    })
+  })
 
   it('should download csv file', async () => {
-    await setup();
+    await setup()
 
-    const downloadBtn = screen.getByRole('button', { name: 'Download' });
+    const downloadBtn = screen.getByRole('button', { name: 'Download' })
 
-    const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click');
+    const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click')
 
-    await userEvent.click(downloadBtn);
+    await userEvent.click(downloadBtn)
 
-    expect(clickSpy).toHaveBeenCalled();
-  });
-});
+    expect(clickSpy).toHaveBeenCalled()
+  })
+})

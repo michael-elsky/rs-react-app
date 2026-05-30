@@ -1,3 +1,3 @@
-import TestError from './TestError';
+import TestError from './TestError'
 
-export default TestError;
+export default TestError

@@ -1,15 +1,15 @@
-import { useSearchParams } from 'react-router-dom';
-import classes from './Pagination.module.css';
+import { useSearchParams } from 'react-router-dom'
+import classes from './Pagination.module.css'
 
 interface PaginationProps {
-  onNext: () => void;
-  onPrev: () => void;
+  onNext: () => void
+  onPrev: () => void
 }
 
 const Pagination = ({ onNext, onPrev }: PaginationProps) => {
-  const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams()
 
-  const pageNumber = searchParams.get('page') || 1;
+  const pageNumber = searchParams.get('page') || 1
 
   return (
     <div className={classes.app__pagination}>
@@ -21,7 +21,7 @@ const Pagination = ({ onNext, onPrev }: PaginationProps) => {
         Next
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

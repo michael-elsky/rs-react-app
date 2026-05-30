@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   gap: 20px;
-} 
+}
 
 .app_menu li {
   list-style-type: none;

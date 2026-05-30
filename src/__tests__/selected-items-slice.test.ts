@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest'
 
-import reducer, { selectedItemsActions } from '../store/selected-items-slice';
+import reducer, { selectedItemsActions } from '../store/selected-items-slice'
 
 describe('selectedItemsSlice', () => {
   const mockItem = {
@@ -9,38 +9,35 @@ describe('selectedItemsSlice', () => {
     episode_id: 1,
     url: 'test-url',
     items: [],
-  };
+  }
 
   it('should add item', () => {
-    const state = reducer(mockItem, selectedItemsActions.toggleItem(mockItem));
+    const state = reducer(mockItem, selectedItemsActions.toggleItem(mockItem))
 
-    expect(state.items).toHaveLength(1);
-    expect(state.items[0]).toEqual(mockItem);
-  });
+    expect(state.items).toHaveLength(1)
+    expect(state.items[0]).toEqual(mockItem)
+  })
 
   it('should remove item', () => {
     const initialState = {
       items: [mockItem],
-    };
+    }
 
     const state = reducer(
       initialState,
       selectedItemsActions.toggleItem(mockItem),
-    );
+    )
 
-    expect(state.items).toHaveLength(0);
-  });
+    expect(state.items).toHaveLength(0)
+  })
 
   it('should unselect all items', () => {
     const initialState = {
       items: [mockItem],
-    };
+    }
 
-    const state = reducer(
-      initialState,
-      selectedItemsActions.unSelectAll(),
-    );
+    const state = reducer(initialState, selectedItemsActions.unSelectAll())
 
-    expect(state.items).toEqual([]);
-  });
-});
+    expect(state.items).toEqual([])
+  })
+})

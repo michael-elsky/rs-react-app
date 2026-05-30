@@ -1,42 +1,42 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest'
 import {
   clearLocalStorage,
   getLocalStorageData,
   saveLocalStorageData,
-} from '../utils/localStorageData';
+} from '../utils/localStorageData'
 
 describe('localStorageData', () => {
   beforeEach(() => {
-    localStorage.clear();
-  });
+    localStorage.clear()
+  })
 
   it('saves data to localStorage', () => {
-    const text = 'A new';
+    const text = 'A new'
 
-    saveLocalStorageData(text);
+    saveLocalStorageData(text)
 
-    const data = localStorage.getItem('savedInputValue');
+    const data = localStorage.getItem('savedInputValue')
 
-    expect(data).toBe(text);
-  });
+    expect(data).toBe(text)
+  })
 
   it('gets data from localStorage', () => {
-    const text = 'A new';
+    const text = 'A new'
 
-    localStorage.setItem('savedInputValue', text);
+    localStorage.setItem('savedInputValue', text)
 
-    const data = getLocalStorageData();
+    const data = getLocalStorageData()
 
-    expect(data).toBe(text);
-  });
+    expect(data).toBe(text)
+  })
 
   it('clears localStorage', () => {
-    const text = 'A new';
+    const text = 'A new'
 
-    localStorage.setItem('savedInputValue', text);
+    localStorage.setItem('savedInputValue', text)
 
-    clearLocalStorage();
+    clearLocalStorage()
 
-    expect(localStorage.length).toBe(0);
-  });
-});
+    expect(localStorage.length).toBe(0)
+  })
+})

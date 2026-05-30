@@ -1,13 +1,13 @@
-import { useNavigate, useRouteError } from 'react-router-dom';
-import ErrorDisplay from '../ErrorDisplay/ErrorDisplay';
+import { useNavigate, useRouteError } from 'react-router-dom'
+import ErrorDisplay from '../ErrorDisplay/ErrorDisplay'
 
 const RouterError = () => {
-  const error = useRouteError();
-  const navigate = useNavigate();
+  const error = useRouteError()
+  const navigate = useNavigate()
 
   const handleResetError = () => {
-    navigate('/');
-  };
+    navigate('/')
+  }
 
   return (
     <ErrorDisplay
@@ -17,7 +17,7 @@ const RouterError = () => {
         error instanceof Error ? error.message : 'Something went wrong'
       }
     />
-  );
-};
+  )
+}
 
-export default RouterError;
+export default RouterError
