@@ -7,9 +7,12 @@ import errorMessageType from '../../../utils/errorMessageType'
 const ResultDetails = () => {
   const { itemId } = useParams()
 
-  const { data, isLoading, error } = useGetFilmDetailsQuery(itemId || '')
+  const { data, isLoading, isFetching, error } = useGetFilmDetailsQuery(
+    itemId || '',
+  )
 
   const errorMessage = errorMessageType(error)
+  const isFilmsLoading = isLoading || isFetching
 
   const element = (
     <>
@@ -18,7 +21,7 @@ const ResultDetails = () => {
     </>
   )
 
-  const renderContent = RenderContent(element, isLoading, errorMessage)
+  const renderContent = RenderContent(element, isFilmsLoading, errorMessage)
 
   return (
     <section
