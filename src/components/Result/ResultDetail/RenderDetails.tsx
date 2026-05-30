@@ -1,12 +1,15 @@
 import { useParams } from 'react-router-dom'
 import classes from './ResultDetails.module.css'
-import useFetchFilmDetails from '../../../hooks/useFetchFilmDetails'
-import RenderContent from '../RenderContent'
+import RenderContent from '../renderContent'
+import { useGetFilmDetailsQuery } from '../../../store/api'
+import errorMessageType from '../../../utils/errorMessageType'
 
 const ResultDetails = () => {
   const { itemId } = useParams()
 
-  const { data, isLoading, errorMessage } = useFetchFilmDetails(itemId || '')
+  const { data, isLoading, error } = useGetFilmDetailsQuery(itemId || '')
+
+  const errorMessage = errorMessageType(error)
 
   const element = (
     <>

@@ -2,7 +2,7 @@ import classes from './Result.module.css'
 
 import type { ResultProps } from './Result.types'
 import ResultList from './ResultList/ResultList'
-import RenderContent from './RenderContent'
+import RenderContent from './renderContent'
 
 const Result = ({
   data,

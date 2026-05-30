@@ -1,11 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import selectedItemsReducer from './selected-items-slice'
+import { api } from './api'
 
 const store = configureStore({
   reducer: {
+    [api.reducerPath]: api.reducer,
+
     selectedItems: selectedItemsReducer,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -9,12 +9,13 @@ import {
   saveLocalStorageData,
 } from '../../utils/localStorageData'
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom'
-import useFetchFilmsList from '../../hooks/useFetchList'
 import usePagination from '../../hooks/Pagination/usePagination'
 import Pagination from '../../components/Pagination/Pagination'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../store'
 import SelectedItems from '../../components/SelectedItems/SelectedItems'
+import { useGetFilmsQuery } from '../../store/api'
+import errorMessageType from '../../utils/errorMessageType'
 
 const Home = () => {
   const initialSearchValue = getLocalStorageData() || ''
@@ -24,9 +25,11 @@ const Home = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
-  const { data, isLoading, errorMessage } = useFetchFilmsList(savedSearchValue)
+  const { data, isLoading, error } = useGetFilmsQuery(savedSearchValue)
 
-  const dataChecked = Array.isArray(data) ? data : []
+  const errorMessage = errorMessageType(error)
+
+  const dataChecked = Array.isArray(data?.results) ? data?.results : []
 
   const { paginatedData, handleNext, handlePrev } = usePagination(dataChecked)
 
