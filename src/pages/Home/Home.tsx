@@ -16,6 +16,7 @@ import type { RootState } from '../../store'
 import SelectedItems from '../../components/SelectedItems/SelectedItems'
 import { useGetFilmsQuery } from '../../store/api'
 import errorMessageType from '../../utils/errorMessageType'
+import RefreshData from '../../components/RefreshData/RefreshData'
 
 const Home = () => {
   const initialSearchValue = getLocalStorageData() || ''
@@ -68,6 +69,8 @@ const Home = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
+
+      <RefreshData />
 
       <Result
         data={paginatedData}
