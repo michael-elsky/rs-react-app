@@ -1,42 +1,50 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { Provider } from 'react-redux'
-
-import { fetchData } from '../api/fetch'
-import App from '../App'
-import selectedItemsReducer from '../store/selected-items-slice'
 import { configureStore } from '@reduxjs/toolkit'
 
-vi.mock('../api/fetch', () => ({
-  fetchData: vi.fn(),
-}))
+import App from '../App'
+import selectedItemsReducer from '../store/selected-items-slice'
+import { api } from '../store/api'
+
+vi.mock('../store/api', async () => {
+  const actual = await vi.importActual('../store/api')
+
+  return {
+    ...actual,
+    useGetFilmsQuery: () => ({
+      data: {
+        results: [
+          { title: 'Film', opening_crawl: 'About film', url: '1' },
+          { title: 'Film 2', opening_crawl: 'About film 2', url: '2' },
+        ],
+      },
+      isLoading: false,
+      isFetching: false,
+      error: null,
+      refetch: vi.fn(),
+    }),
+  }
+})
 
 describe('SelectedItems', () => {
-  const data = {
-    results: [
-      {
-        title: 'Film',
-        opening_crawl: 'About film',
-        url: 'https://swapi.dev/api/films/1/',
-      },
-      {
-        title: 'Film 2',
-        opening_crawl: 'About film 2',
-        url: 'https://swapi.dev/api/films/2/',
-      },
-    ],
-  }
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
 
   const setup = async () => {
     const testStore = configureStore({
       reducer: {
+        [api.reducerPath]: api.reducer,
+
         selectedItems: selectedItemsReducer,
       },
-    })
 
-    vi.mocked(fetchData).mockResolvedValueOnce(data)
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(api.middleware),
+    })
 
     render(
       <Provider store={testStore}>

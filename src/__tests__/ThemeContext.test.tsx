@@ -1,23 +1,16 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import { userEvent } from '@testing-library/user-event'
 
 import App from '../App'
-import selectedItemsReducer from '../store/selected-items-slice'
 import ThemeContextProvider from '../context/ThemeContext'
+import store from '../store'
 
 describe('ThemeContext', () => {
-  const testStore = configureStore({
-    reducer: {
-      selectedItems: selectedItemsReducer,
-    },
-  })
-
   it('should change theme', async () => {
     render(
-      <Provider store={testStore}>
+      <Provider store={store}>
         <ThemeContextProvider>
           <App />
         </ThemeContextProvider>

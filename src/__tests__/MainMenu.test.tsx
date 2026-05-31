@@ -8,12 +8,18 @@ import App from '../App'
 import selectedItemsReducer from '../store/selected-items-slice'
 import classes from '../components/MainMenu/MainMenu.module.css'
 import { userEvent } from '@testing-library/user-event'
+import { api } from '../store/api';
 
 describe('MainMenu', () => {
   const testStore = configureStore({
     reducer: {
+      [api.reducerPath]: api.reducer,
+
       selectedItems: selectedItemsReducer,
     },
+
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(api.middleware),
   })
 
   it('', async () => {

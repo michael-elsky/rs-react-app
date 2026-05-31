@@ -1,16 +1,18 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { fetchData } from '../api/fetch'
 import { render, screen } from '@testing-library/react'
-import App from '../App'
 import userEvent from '@testing-library/user-event'
+
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
+
+import App from '../App'
 import {
   getLocalStorageData,
   saveLocalStorageData,
 } from '../utils/localStorageData'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import Page404 from '../pages/404/Page404'
-import { Provider } from 'react-redux'
 import store from '../store'
+import * as api from '../store/api'
 
 vi.mock('../api/fetch', () => ({
   fetchData: vi.fn(),
@@ -26,17 +28,15 @@ describe('App', () => {
     vi.clearAllMocks()
   })
 
-  const data = {
-    results: [
-      {
-        title: 'Film',
-        opening_crawl: 'About film',
-      },
-    ],
-  }
-
   it('Successful fetch. After fetch data, title should be on the screen', async () => {
-    vi.mocked(fetchData).mockResolvedValueOnce(data)
+    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+      data: {
+        results: [{ title: 'Film', url: '1' }],
+      },
+      isLoading: false,
+      error: null,
+      refetch: vi.fn(),
+    })
 
     render(
       <Provider store={store}>
@@ -50,8 +50,12 @@ describe('App', () => {
   })
 
   it('Loading state. Loading spinner should be on the screen', () => {
-    vi.mocked(fetchData).mockImplementation(() => {
-      return new Promise(() => {})
+    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      isFetching: true,
+      error: undefined,
+      refetch: vi.fn(),
     })
 
     render(
@@ -66,9 +70,16 @@ describe('App', () => {
   })
 
   it('Error state. Error message should be on the screen', async () => {
-    const errorMessage = 'app error'
+    const errorMessage = 'Status: FETCH_ERROR'
 
-    vi.mocked(fetchData).mockRejectedValue(new Error(errorMessage))
+    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      error: {
+        status: 'FETCH_ERROR',
+      },
+      refetch: vi.fn(),
+    })
 
     render(
       <Provider store={store}>
@@ -84,7 +95,14 @@ describe('App', () => {
   it('Empty results. Message should be on the screen', async () => {
     const message = 'No results found'
 
-    vi.mocked(fetchData).mockResolvedValueOnce({ results: [] })
+    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+      data: {
+        results: [],
+      },
+      isLoading: false,
+      error: null,
+      refetch: vi.fn(),
+    })
 
     render(
       <Provider store={store}>
@@ -95,30 +113,6 @@ describe('App', () => {
     const p = await screen.findByText(message)
 
     expect(p).toBeInTheDocument()
-  })
-
-  it('Initial fetch. Fetch must called with valid url', async () => {
-    const url = 'https://swapi.py4e.com/api/films/'
-    const data = {
-      results: [
-        {
-          title: 'Film',
-          opening_crawl: 'About film',
-        },
-      ],
-    }
-
-    vi.mocked(fetchData).mockResolvedValueOnce(data)
-
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    )
-
-    await screen.findByRole('textbox')
-
-    expect(fetchData).toHaveBeenCalledWith(url)
   })
 
   it('should save localStorage data', async () => {
@@ -138,7 +132,6 @@ describe('App', () => {
     await userEvent.click(button)
 
     expect(saveLocalStorageData).toHaveBeenCalledWith(searchTextTrimmed)
-    expect(fetchData).toHaveBeenCalled()
   })
 
   it('input value should be equal to local storage data', async () => {
@@ -155,10 +148,6 @@ describe('App', () => {
     const input = await screen.findByRole('textbox')
 
     expect(input).toHaveValue(searchText)
-    expect(fetchData).toHaveBeenCalledTimes(1)
-    expect(fetchData).toHaveBeenCalledWith(
-      expect.stringContaining('search=A New'),
-    )
   })
 
   it('should not fetch or save if value did not change', async () => {
@@ -242,7 +231,14 @@ describe('App', () => {
     const buttonUnSelectText = 'Unselect all'
     const buttonDownloadText = 'Download'
 
-    vi.mocked(fetchData).mockResolvedValueOnce(data)
+    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+      data: {
+        results: [{ title: 'Film', url: '1' }],
+      },
+      isLoading: false,
+      error: null,
+      refetch: vi.fn(),
+    })
 
     render(
       <Provider store={store}>
