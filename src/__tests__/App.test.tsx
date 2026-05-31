@@ -273,4 +273,22 @@ describe('App', () => {
     expect(unSelectBtn).toBeInTheDocument()
     expect(downloadBtn).toBeInTheDocument()
   })
+
+  it('should invalidate cache after clicking refresh button', async () => {
+    const dispatchSpy = vi.spyOn(testStore, 'dispatch')
+
+    render(
+      <Provider store={testStore}>
+        <App />
+      </Provider>,
+    )
+
+    const button = screen.getByRole('button', {
+      name: 'Refresh data',
+    })
+
+    await userEvent.click(button)
+
+    expect(dispatchSpy).toHaveBeenCalledWith(api.util.invalidateTags(['films']))
+  })
 })
