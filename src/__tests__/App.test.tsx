@@ -1,9 +1,10 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { configureStore } from '@reduxjs/toolkit'
 
 import App from '../App'
 import {
@@ -11,12 +12,9 @@ import {
   saveLocalStorageData,
 } from '../utils/localStorageData'
 import Page404 from '../pages/404/Page404'
-import store from '../store'
-import * as api from '../store/api'
-
-vi.mock('../api/fetch', () => ({
-  fetchData: vi.fn(),
-}))
+import * as apiModule from '../store/api'
+import { api } from '../store/api'
+import selectedItemsReducer from '../store/selected-items-slice'
 
 vi.mock('../utils/localStorageData', () => ({
   getLocalStorageData: vi.fn(),
@@ -24,12 +22,27 @@ vi.mock('../utils/localStorageData', () => ({
 }))
 
 describe('App', () => {
+  let testStore: ReturnType<typeof configureStore>
+
+  beforeEach(() => {
+    testStore = configureStore({
+      reducer: {
+        [api.reducerPath]: api.reducer,
+
+        selectedItems: selectedItemsReducer,
+      },
+
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(api.middleware),
+    })
+  })
+
   afterEach(() => {
     vi.clearAllMocks()
   })
 
   it('Successful fetch. After fetch data, title should be on the screen', async () => {
-    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+    vi.spyOn(apiModule, 'useGetFilmsQuery').mockReturnValue({
       data: {
         results: [{ title: 'Film', url: '1' }],
       },
@@ -39,7 +52,7 @@ describe('App', () => {
     })
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -50,7 +63,7 @@ describe('App', () => {
   })
 
   it('Loading state. Loading spinner should be on the screen', () => {
-    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+    vi.spyOn(apiModule, 'useGetFilmsQuery').mockReturnValue({
       data: undefined,
       isLoading: true,
       isFetching: true,
@@ -59,7 +72,7 @@ describe('App', () => {
     })
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -72,7 +85,7 @@ describe('App', () => {
   it('Error state. Error message should be on the screen', async () => {
     const errorMessage = 'Status: FETCH_ERROR'
 
-    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+    vi.spyOn(apiModule, 'useGetFilmsQuery').mockReturnValue({
       data: undefined,
       isLoading: false,
       error: {
@@ -82,7 +95,7 @@ describe('App', () => {
     })
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -95,7 +108,7 @@ describe('App', () => {
   it('Empty results. Message should be on the screen', async () => {
     const message = 'No results found'
 
-    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+    vi.spyOn(apiModule, 'useGetFilmsQuery').mockReturnValue({
       data: {
         results: [],
       },
@@ -105,7 +118,7 @@ describe('App', () => {
     })
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -120,7 +133,7 @@ describe('App', () => {
     const searchTextTrimmed = searchText.trim()
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -140,7 +153,7 @@ describe('App', () => {
     vi.mocked(getLocalStorageData).mockReturnValueOnce(searchText)
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -156,7 +169,7 @@ describe('App', () => {
     vi.mocked(getLocalStorageData).mockReturnValueOnce(searchText)
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -168,11 +181,11 @@ describe('App', () => {
     expect(saveLocalStorageData).not.toHaveBeenCalled()
   })
 
-  it('should not call api when search is empty string', async () => {
+  it('should not call apiModule when search is empty string', async () => {
     vi.mocked(getLocalStorageData).mockReturnValueOnce('')
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -186,7 +199,7 @@ describe('App', () => {
 
   it('should be Reset error button', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
@@ -231,7 +244,7 @@ describe('App', () => {
     const buttonUnSelectText = 'Unselect all'
     const buttonDownloadText = 'Download'
 
-    vi.spyOn(api, 'useGetFilmsQuery').mockReturnValue({
+    vi.spyOn(apiModule, 'useGetFilmsQuery').mockReturnValue({
       data: {
         results: [{ title: 'Film', url: '1' }],
       },
@@ -241,7 +254,7 @@ describe('App', () => {
     })
 
     render(
-      <Provider store={store}>
+      <Provider store={testStore}>
         <App />
       </Provider>,
     )
