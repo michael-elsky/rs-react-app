@@ -1,6 +1,6 @@
-import classes from './MainMenu.module.css';
+import classes from './MainMenu.module.css'
 
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 const MainMenu = () => {
   return (
@@ -30,7 +30,7 @@ const MainMenu = () => {
         </NavLink>
       </li>
     </ul>
-  );
-};
+  )
+}
 
-export default MainMenu;
+export default MainMenu

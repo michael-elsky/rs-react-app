@@ -1,7 +1,7 @@
-import classes from './ErrorDisplay.module.css';
+import classes from './ErrorDisplay.module.css'
 
-import type { ErrorDisplayProps } from './ErrorDisplay.types';
-import Button from '../Ui/Button/Button';
+import type { ErrorDisplayProps } from './ErrorDisplay.types'
+import Button from '../Ui/Button/Button'
 
 const ErrorDisplay = ({
   hasError,
@@ -16,10 +16,10 @@ const ErrorDisplay = ({
           Reset error
         </Button>
       </>
-    );
+    )
   }
 
-  return <p className={classes['app__error-message']}>{errorMessage}</p>;
-};
+  return <p className={classes['app__error-message']}>{errorMessage}</p>
+}
 
-export default ErrorDisplay;
+export default ErrorDisplay

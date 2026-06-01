@@ -1,4 +1,4 @@
-import classes from './About.module.css';
+import classes from './About.module.css'
 
 const About = () => {
   return (
@@ -23,7 +23,7 @@ const About = () => {
         </a>
       </p>
     </section>
-  );
-};
+  )
+}
 
-export default About;
+export default About

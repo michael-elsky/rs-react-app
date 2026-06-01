@@ -1,9 +1,9 @@
-import classes from './Main.module.css';
+import classes from './Main.module.css'
 
-import type { ChildrenProp } from '../../types/types';
+import type { ChildrenProp } from '../../types/types'
 
 const Main = ({ children }: ChildrenProp) => {
-  return <main className={classes.app}>{children}</main>;
-};
+  return <main className={classes.app}>{children}</main>
+}
 
-export default Main;
+export default Main

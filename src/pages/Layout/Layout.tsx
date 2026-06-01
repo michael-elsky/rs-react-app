@@ -1,7 +1,7 @@
-import { Outlet } from 'react-router-dom';
-import Main from '../../components/Main';
-import MainMenu from '../../components/MainMenu/MainMenu';
-import ThemeToggle from '../../components/ThemeToggle/ThemeToggle';
+import { Outlet } from 'react-router-dom'
+import Main from '../../components/Main'
+import MainMenu from '../../components/MainMenu/MainMenu'
+import ThemeToggle from '../../components/ThemeToggle/ThemeToggle'
 
 const Layout = () => {
   return (
@@ -9,12 +9,12 @@ const Layout = () => {
       <ThemeToggle />
 
       <MainMenu />
-      
+
       <Main>
         <Outlet />
       </Main>
     </>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

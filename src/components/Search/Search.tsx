@@ -1,7 +1,7 @@
-import Button from '../Ui/Button/Button';
-import classes from './Search.module.css';
+import Button from '../Ui/Button/Button'
+import classes from './Search.module.css'
 
-import type { SearchProps } from './Search.types';
+import type { SearchProps } from './Search.types'
 
 const Search = ({
   handleSubmit,
@@ -24,7 +24,7 @@ const Search = ({
       />
       <Button className={classes['app__search-btn']}>Search</Button>
     </form>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search

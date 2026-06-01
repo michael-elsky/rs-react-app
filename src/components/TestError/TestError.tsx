@@ -1,18 +1,18 @@
-import classes from './TestError.module.css';
+import classes from './TestError.module.css'
 
-import { useState } from 'react';
+import { useState } from 'react'
 
-import Button from '../Ui/Button/Button';
+import Button from '../Ui/Button/Button'
 
 const TestError = () => {
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(false)
 
   const handleClick = () => {
-    setIsError(true);
-  };
+    setIsError(true)
+  }
 
   if (isError) {
-    throw new Error('Test error');
+    throw new Error('Test error')
   }
 
   return (
@@ -21,7 +21,7 @@ const TestError = () => {
         Error Button
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default TestError;
+export default TestError

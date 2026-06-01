@@ -1,5 +1,5 @@
-import type { DataProps } from '../../Result.types';
+import type { DataProps } from '../../Result.types'
 
 export interface CheckBoxProps {
-  item: DataProps;
+  item: DataProps
 }

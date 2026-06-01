@@ -1,7 +1,7 @@
-import type React from 'react';
-import ErrorDisplay from '../ErrorDisplay/ErrorDisplay';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import type { DataProps } from './Result.types';
+import type React from 'react'
+import ErrorDisplay from '../ErrorDisplay/ErrorDisplay'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
+import type { DataProps } from './Result.types'
 
 const RenderContent = (
   component?: React.ReactNode,
@@ -10,18 +10,18 @@ const RenderContent = (
   data?: DataProps[] | DataProps | null,
 ) => {
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner />
   }
 
   if (errorMessage) {
-    return <ErrorDisplay errorMessage={errorMessage} />;
+    return <ErrorDisplay errorMessage={errorMessage} />
   }
 
   if (Array.isArray(data) && !data.length) {
-    return <ErrorDisplay errorMessage="No results found" />;
+    return <ErrorDisplay errorMessage="No results found" />
   }
 
-  return component;
-};
+  return component
+}
 
-export default RenderContent;
+export default RenderContent

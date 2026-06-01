@@ -1,13 +1,13 @@
-import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-import Search from '../components/Search';
-import { useState } from 'react';
+import Search from '../components/Search'
+import { useState } from 'react'
 
 describe('Search', () => {
   it('renders search input and submit button', () => {
-    const handleSubmit = vi.fn();
+    const handleSubmit = vi.fn()
 
     render(
       <Search
@@ -15,20 +15,20 @@ describe('Search', () => {
         searchInputValue={''}
         handleChange={vi.fn()}
       />,
-    );
+    )
 
-    const input = screen.getByRole('textbox');
-    const button = screen.getByRole('button', { name: 'Search' });
+    const input = screen.getByRole('textbox')
+    const button = screen.getByRole('button', { name: 'Search' })
 
-    expect(input).toBeInTheDocument();
-    expect(button).toBeInTheDocument();
-  });
+    expect(input).toBeInTheDocument()
+    expect(button).toBeInTheDocument()
+  })
 
   it('calls submit handler when user submits the form', async () => {
-    const handleSubmit = vi.fn();
+    const handleSubmit = vi.fn()
 
     const Wrapper = () => {
-      const [value, setValue] = useState('');
+      const [value, setValue] = useState('')
 
       return (
         <Search
@@ -36,20 +36,20 @@ describe('Search', () => {
           handleSubmit={handleSubmit}
           handleChange={(e) => setValue(e.target.value)}
         />
-      );
-    };
+      )
+    }
 
-    render(<Wrapper />);
+    render(<Wrapper />)
 
-    const input = screen.getByRole('textbox');
-    const button = screen.getByRole('button', { name: 'Search' });
+    const input = screen.getByRole('textbox')
+    const button = screen.getByRole('button', { name: 'Search' })
 
-    const userInputText = 'The Em ';
+    const userInputText = 'The Em '
 
-    await userEvent.type(input, userInputText);
-    expect(input).toHaveValue(userInputText);
+    await userEvent.type(input, userInputText)
+    expect(input).toHaveValue(userInputText)
 
-    await userEvent.click(button);
-    expect(handleSubmit).toHaveBeenCalledTimes(1);
-  });
-});
+    await userEvent.click(button)
+    expect(handleSubmit).toHaveBeenCalledTimes(1)
+  })
+})

@@ -1,6 +1,6 @@
-import type { DataProps } from '../Result.types';
+import type { DataProps } from '../Result.types'
 
 export interface ResultListProps {
-  data: DataProps[];
-  onClose: () => void;
+  data: DataProps[]
+  onClose: () => void
 }
