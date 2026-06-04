@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "types": ["vite/client", "vitest/globals"],
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
