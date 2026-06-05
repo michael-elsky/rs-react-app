@@ -1,0 +1,51 @@
+.app__header {
+  box-shadow: var(--box-shadow);
+  padding: 14px 24px;
+}
+
+.app__header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app__logo {
+  display: flex;
+  gap: 12px;
+}
+
+.app__logo-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: var(--color-text);
+  border-radius: 8px;
+}
+.app__file-icon path {
+  color: var(--color-bg);
+}
+
+.app__heading {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.app__logo-heading {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.app__type-of-project {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app__type-of-project path {
+  color: var(--color-text-secondary);
+}
+
+.app__type-of-project span {
+  color: var(--color-text-secondary);
+}
