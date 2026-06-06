@@ -1,3 +1,4 @@
+import Entries from '../Entries/Entries'
 import Forms from '../Playground/Playground'
 import './Main.css'
 
@@ -8,7 +9,7 @@ const Main = () => {
         <div className="app__main-wrapper">
           <Forms />
 
-          <section className="app__entries"></section>
+          <Entries />
         </div>
       </div>
     </main>
