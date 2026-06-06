@@ -1,0 +1,27 @@
+.playground-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.playground-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.playground-header__logo,
+.playground-header__logo svg {
+  color: var(--color-text-secondary);
+}
+
+.playground-header__heading {
+  font-size: 24px;
+  color: var(--color-text);
+}
+
+.playground-header__heading-description {
+  max-width: 445px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
