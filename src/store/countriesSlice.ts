@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState: string[] = ['Germany', 'France', 'Spain', 'Poland']
+interface CountriesState {
+  countries: string[]
+}
+
+const initialState: CountriesState = {
+  countries: ['Germany', 'France', 'Spain', 'Poland'],
+}
 
 const countriesSlice = createSlice({
   name: 'countries',

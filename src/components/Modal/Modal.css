@@ -10,9 +10,11 @@
 
 .app__modal-content-wrapper {
   width: 500px;
+  max-height: 90vh;
   padding: 16px 24px;
   background: var(--color-bg);
   border-radius: 12px;
+  overflow-y: auto;
 }
 
 .app__modal-header {

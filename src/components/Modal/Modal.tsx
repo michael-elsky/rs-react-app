@@ -2,6 +2,7 @@ import './Modal.css'
 
 import type { MouseEvent } from 'react'
 import type { ModalProps } from '../../types/Modal.types'
+import UncontrolledForm from '../UncontrolledForm/UncontrolledForm'
 
 const Modal = ({ formType, onClose }: ModalProps) => {
   let title = 'Open Uncontrolled Form'
@@ -32,6 +33,8 @@ const Modal = ({ formType, onClose }: ModalProps) => {
             ✕
           </button>
         </div>
+
+        {formType === 'useRef' && <UncontrolledForm />}
       </div>
     </div>
   )
