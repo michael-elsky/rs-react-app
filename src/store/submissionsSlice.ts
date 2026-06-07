@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { SubmissionsState } from '../types/submission.type'
+import type { SubmissionsState } from '../types/submission.types'
 
 const initialState: SubmissionsState = {
   submissions: [],

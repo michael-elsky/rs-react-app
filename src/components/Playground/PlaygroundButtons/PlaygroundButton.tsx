@@ -1,4 +1,4 @@
-import type { PlaygroundButtonProps } from '../../../types/PlaygroundButton.type'
+import type { PlaygroundButtonProps } from '../../../types/Playground.types'
 
 const PlaygroundButton = ({
   className,
@@ -8,12 +8,14 @@ const PlaygroundButton = ({
   heading,
   description,
   patternType,
+  onClick,
 }: PlaygroundButtonProps) => {
   return (
     <button
       className={`app__playground-btn playground-btn ${className}`}
       type="button"
       title={title}
+      onClick={onClick}
     >
       <div className="playground-btn__logo">
         <div className="playground-btn__logo-icon">{icon}</div>

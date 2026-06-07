@@ -1,7 +1,7 @@
+import type { ReactNode } from 'react'
 import './Entries.css'
-import EntriesOutput from './EntriesOutput/EntriesOutput'
 
-const Entries = () => {
+const Entries = ({ children }: { children: ReactNode }) => {
   return (
     <section className="app__entries">
       <div className="container">
@@ -11,7 +11,7 @@ const Entries = () => {
             <p className="app__entries__count">No entries yet</p>
           </div>
 
-          <EntriesOutput />
+          {children}
         </div>
       </div>
     </section>

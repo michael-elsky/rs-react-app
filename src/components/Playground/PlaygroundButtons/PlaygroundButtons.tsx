@@ -1,6 +1,7 @@
 import './PlaygroundButtons.css'
 
 import PlaygroundButton from './PlaygroundButton'
+import type { PlaygroundButtonsProps } from '../../../types/Playground.types';
 
 const uncontrolledIcon = (
   <svg
@@ -43,7 +44,7 @@ const controlledIcon = (
   </svg>
 )
 
-const PlaygroundButtons = () => {
+const PlaygroundButtons = ({ onOpen }: PlaygroundButtonsProps) => {
   return (
     <div className="app__playground__buttons-wrapper">
       <PlaygroundButton
@@ -55,6 +56,7 @@ const PlaygroundButtons = () => {
         description="Uses React refs and native DOM access. Manual validation runs on
             submit. Great for simple forms with minimal re-renders."
         patternType="Uncontrolled pattern"
+        onClick={() => onOpen('useRef')}
       />
 
       <PlaygroundButton
@@ -65,13 +67,8 @@ const PlaygroundButtons = () => {
         heading="Open React Hook Form"
         description="Uses the react-hook-form library for declarative validation. Field-level errors show on blur with minimal boilerplate."
         patternType="Hook Form pattern"
+        onClick={() => onOpen('useForm')}
       />
-
-      {/* <button
-        className="app__playground-btn playground-btn app__playground-btn--controlled"
-        type="button"
-        title="Open Uncontrolled Form"
-      ></button> */}
     </div>
   )
 }

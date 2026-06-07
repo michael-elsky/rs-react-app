@@ -1,15 +1,8 @@
+import type { ReactNode } from 'react'
 import './Playground.css'
 
-import PlaygroundButtons from './PlaygroundButtons/PlaygroundButtons'
-import PlaygroundHeader from './PlaygroundHeader/PlaygroundHeader'
-
-const Playground = () => {
-  return (
-    <section className="app__playground">
-      <PlaygroundHeader />
-      <PlaygroundButtons />
-    </section>
-  )
+const Playground = ({ children }: { children: ReactNode }) => {
+  return <section className="app__playground">{children}</section>
 }
 
 export default Playground

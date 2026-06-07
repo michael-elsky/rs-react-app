@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { FormTypes } from './Modal.types';
 
 export interface PlaygroundButtonProps {
   className: string
@@ -8,4 +9,9 @@ export interface PlaygroundButtonProps {
   heading: string
   description: string
   patternType: string
+  onClick: () => void
+}
+
+export interface PlaygroundButtonsProps {
+  onOpen: (formType: FormTypes) => void
 }
