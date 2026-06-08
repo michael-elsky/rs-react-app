@@ -48,3 +48,8 @@
     background: var(--color-submit-btn-secondary);
   }
 }
+
+.app__form-error {
+  font-size: 12px;
+  color: var(--color-error);
+}

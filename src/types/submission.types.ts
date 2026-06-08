@@ -1,7 +1,9 @@
+import type { FormTypes } from "./Modal.types";
+
 export interface Submission {
   id: string
 
-  formType: 'uncontrolled' | 'react-hook-form'
+  formType: FormTypes
 
   name: string
   age: number
@@ -10,7 +12,7 @@ export interface Submission {
   gender: 'male' | 'female'
   country: string
 
-  image: string | null
+  profileImage?: string | null
 }
 
 export interface SubmissionsState {

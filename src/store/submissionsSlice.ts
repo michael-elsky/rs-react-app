@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { SubmissionsState } from '../types/submission.types'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import type { Submission, SubmissionsState } from '../types/submission.types'
 
 const initialState: SubmissionsState = {
   submissions: [],
-  lastAddedId: null
+  lastAddedId: null,
 }
 
 const submissionsSlice = createSlice({
@@ -11,7 +11,11 @@ const submissionsSlice = createSlice({
 
   initialState,
 
-  reducers: {},
+  reducers: {
+    addSubmission: (state, action: PayloadAction<Submission>) => {
+      state.submissions.push(action.payload)
+    },
+  },
 })
 
 export const submissionsAction = submissionsSlice.actions

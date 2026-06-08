@@ -1,20 +1,46 @@
-import { useSelector } from 'react-redux'
-import './UncontrolledForm.css'
-import type { RootState } from '../../store'
-import { useRef, type ChangeEvent, } from 'react'
+import './Forms.css'
 
-const UncontrolledForm = () => {
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState } from '../../store'
+import { useRef, useState, type SubmitEvent } from 'react'
+
+import { submissionsAction } from '../../store/submissionsSlice'
+import createSubmissionObject from '../../utils/createSubmissionObject'
+import FormError from './FormError'
+
+const UncontrolledForm = ({ onClose }: { onClose: () => void }) => {
   const { countries } = useSelector((state: RootState) => state.countries)
   const formRef = useRef<HTMLFormElement>(null)
 
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+  const dispatch = useDispatch()
+
+  const [isError, setIsError] = useState(false)
+
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!formRef.current) return
 
     const formData = new FormData(formRef.current)
 
-    console.log(Object.fromEntries(formData))
+    const password = formData.get('password')
+    const confirmPassword = formData.get('confirmPassword')
+
+    if (password !== confirmPassword) {
+      setIsError(true)
+      return
+    }
+
+    setIsError(false)
+
+    const submission = createSubmissionObject(formData)
+
+    if (submission) {
+      dispatch(submissionsAction.addSubmission(submission))
+    }
+
+    formRef.current.reset()
+    onClose()
   }
 
   return (
@@ -112,7 +138,7 @@ const UncontrolledForm = () => {
             type="file"
             id="profile-image"
             name="profileImage"
-            accept="image/"
+            accept="image/*"
           />
         </li>
 
@@ -126,6 +152,7 @@ const UncontrolledForm = () => {
             type="password"
             id="password"
             name="password"
+            onChange={() => setIsError(false)}
             required
           />
         </li>
@@ -140,8 +167,12 @@ const UncontrolledForm = () => {
             type="password"
             id="confirm-password"
             name="confirmPassword"
+            onChange={() => setIsError(false)}
             required
           />
+          {isError && (
+            <FormError message="Password and Confirm Password should be equal" />
+          )}
         </li>
 
         <li className="app__form-item">
