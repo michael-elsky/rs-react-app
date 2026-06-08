@@ -53,3 +53,9 @@
   font-size: 12px;
   color: var(--color-error);
 }
+
+.app__form-pass-Indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

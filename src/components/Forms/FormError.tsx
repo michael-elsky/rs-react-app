@@ -1,4 +1,4 @@
-import './UncontrolledForm.css'
+import './Forms.css'
 
 const FormError = ({ message }: { message: string }) => {
   return <span className="app__form-error">{message}</span>

@@ -14,6 +14,11 @@ const submissionsSlice = createSlice({
   reducers: {
     addSubmission: (state, action: PayloadAction<Submission>) => {
       state.submissions.push(action.payload)
+      state.lastAddedId = action.payload.id
+    },
+
+    clearLastAddedId: (state) => {
+      state.lastAddedId = null
     },
   },
 })

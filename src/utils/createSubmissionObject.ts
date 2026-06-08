@@ -1,6 +1,6 @@
 import type { Submission } from '../types/submission.types'
 
-const createSubmissionObject = (formData: FormData) => {
+const createSubmissionObject = async (formData: FormData) => {
   const name = formData.get('name')
   const age = formData.get('age')
   const email = formData.get('email')
@@ -8,7 +8,7 @@ const createSubmissionObject = (formData: FormData) => {
   const country = formData.get('country')
 
   if (typeof name !== 'string') return
-  if (typeof age !== 'string') return
+  if (!age || typeof age !== 'string') return
   if (typeof email !== 'string') return
   if (typeof gender !== 'string') return
   if (gender !== 'female' && gender !== 'male') return
