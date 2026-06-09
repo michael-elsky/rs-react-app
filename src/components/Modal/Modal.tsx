@@ -35,7 +35,11 @@ const Modal = ({ formType, onClose }: ModalProps) => {
   }, [onClose])
 
   return createPortal(
-    <div className="app__modal" onClick={handleOverlayClick}>
+    <div
+      className="app__modal"
+      data-testid="modal-overlay"
+      onClick={handleOverlayClick}
+    >
       <div className="app__modal-content-wrapper">
         <div className="app__modal-header">
           <div className="app__modal-heading">{title}</div>
