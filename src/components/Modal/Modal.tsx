@@ -1,8 +1,9 @@
 import './Modal.css'
 
-import type { MouseEvent } from 'react'
+import { useEffect, type MouseEvent } from 'react'
 import type { ModalProps } from '../../types/Modal.types'
 import UncontrolledForm from '../Forms/UncontrolledForm'
+import { createPortal } from 'react-dom'
 
 const Modal = ({ formType, onClose }: ModalProps) => {
   let title = 'Open Uncontrolled Form'
@@ -19,7 +20,21 @@ const Modal = ({ formType, onClose }: ModalProps) => {
     }
   }
 
-  return (
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    document.addEventListener('keydown', handleEsc)
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc)
+    }
+  }, [onClose])
+
+  return createPortal(
     <div className="app__modal" onClick={handleOverlayClick}>
       <div className="app__modal-content-wrapper">
         <div className="app__modal-header">
@@ -36,7 +51,8 @@ const Modal = ({ formType, onClose }: ModalProps) => {
 
         {formType === 'useRef' && <UncontrolledForm onClose={onClose} />}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 

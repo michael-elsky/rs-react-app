@@ -2,7 +2,7 @@ import './Forms.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../store'
-import { useRef, useState, type SubmitEvent } from 'react'
+import { useEffect, useRef, useState, type SubmitEvent } from 'react'
 import * as z from 'zod'
 
 import { submissionsAction } from '../../store/submissionsSlice'
@@ -19,6 +19,8 @@ const UncontrolledForm = ({ onClose }: { onClose: () => void }) => {
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [passwordValue, setPasswordValue] = useState('')
+
+  const nameInputRef = useRef<HTMLInputElement>(null)
 
   const getPasswordStrength = (pwd: string) => {
     return {
@@ -135,6 +137,10 @@ const UncontrolledForm = ({ onClose }: { onClose: () => void }) => {
     onClose()
   }
 
+  useEffect(() => {
+    nameInputRef.current?.focus()
+  }, [])
+
   return (
     <form
       className="app__form"
@@ -152,6 +158,7 @@ const UncontrolledForm = ({ onClose }: { onClose: () => void }) => {
             type="text"
             id="name"
             name="name"
+            ref={nameInputRef}
           />
           {errors.name && <FormError message={errors.name} />}
         </li>
