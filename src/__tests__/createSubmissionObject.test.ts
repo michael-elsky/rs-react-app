@@ -30,8 +30,35 @@ describe('createSubmissionObject', () => {
 
     formData.append('name', 'Michael')
     formData.append('age', '13')
-    formData.append('email', 'john@test.com')
+    formData.append('email', 'michael@test.com')
     formData.append('gender', 'other')
+    formData.append('country', 'Germany')
+
+    const result = await createSubmissionObject(formData)
+
+    expect(result).toBeUndefined()
+  })
+
+  it('returns undefined when name is missing type', async () => {
+    const formData = new FormData()
+
+    formData.append('age', '25')
+    formData.append('email', 'test@test.com')
+    formData.append('gender', 'male')
+    formData.append('country', 'Germany')
+
+    const result = await createSubmissionObject(formData)
+
+    expect(result).toBeUndefined()
+  })
+
+  it('returns undefined when age is invalid type', async () => {
+    const formData = new FormData()
+
+    formData.append('name', 'Michael')
+    formData.append('age', '')
+    formData.append('email', 'test@test.com')
+    formData.append('gender', 'male')
     formData.append('country', 'Germany')
 
     const result = await createSubmissionObject(formData)
