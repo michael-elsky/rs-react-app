@@ -1,0 +1,11 @@
+.app__main {
+  height: calc(100vh - 60px);
+  background: var(--color-bg-secondary);
+}
+
+.app__main-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px 0;
+}

@@ -1,0 +1,20 @@
+.app__entries-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.app__entries__header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.app__entries__heading {
+  font-size: 16px;
+}
+
+.app__entries__count {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}

@@ -1,0 +1,20 @@
+:root {
+  /* COLORS */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f6f7f9;
+  --color-text: #0a0a0a;
+  --color-text-secondary: #717182;
+  --color-border: #0000001a;
+  --color-border-secondary: #03021340;
+  --color-modal-bg: #ffffff;
+  --color-modal-bg-secondary: #ebe9e9;
+  --color-submit-btn: #030213;
+  --color-submit-btn-secondary: #1C1B2A;
+  --color-error: #b71616;
+
+  /* EFFECTS */
+  --box-shadow:
+    #00000000 0px 0px 0px 0px, #00000000 0px 0px 0px 0px,
+    #00000000 0px 0px 0px 0px, #00000000 0px 0px 0px 0px,
+    #0000001a 0px 1px 3px 0px, #0000001a 0px 1px 2px -1px;
+}
