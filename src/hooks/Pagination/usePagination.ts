@@ -1,7 +1,8 @@
 'use client'
 
+import { useRouter } from '@/i18n/routing';
 import type { PaginationData } from './usePagination.types'
-import { useSearchParams, useRouter, usePathname } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
 
 const usePagination = (data: PaginationData) => {
   const searchParams = useSearchParams()

@@ -5,9 +5,12 @@ import classes from './RefreshData.module.css'
 import { useDispatch } from 'react-redux'
 
 import { api } from '../../store/api'
+import { useTranslations } from 'next-intl'
 
 const RefreshData = () => {
   const dispatch = useDispatch()
+
+  const t = useTranslations('RefreshData')
 
   const handleRefreshData = () => {
     dispatch(api.util.invalidateTags(['films']))
@@ -18,7 +21,7 @@ const RefreshData = () => {
       className={classes['app__refresh-data']}
       onClick={handleRefreshData}
     >
-      Refresh data
+      {t('button')}
     </button>
   )
 }

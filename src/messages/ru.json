@@ -1,0 +1,36 @@
+{
+  "MainMenu": {
+    "home": "Главная",
+    "about": "О проекте"
+  },
+  "Search": {
+    "label": "Поиск",
+    "placeholder": "Поиск элементов...",
+    "button": "Поиск"
+  },
+  "RefreshData": {
+    "button": "Обновить данные"
+  },
+  "Pagination": {
+    "button-prev": "Пред",
+    "button-next": "След"
+  },
+  "TestError": {
+    "error": "Тест ошибки",
+    "button": "Вызвать ошибку"
+  },
+  "SelectedItems": {
+    "button-unselect": "Снять выделение",
+    "button-download": "Скачать"
+  },
+
+  "About": {
+    "heading": "Михаил Ельский",
+    "link-github": "ГитХаб",
+    "link-rs": "Обучение React от сообщества The Rolling Scopes"
+  },
+  "NotFound": {
+    "heading": "404 - Страница не найдена",
+    "button": "Назад"
+  }
+}

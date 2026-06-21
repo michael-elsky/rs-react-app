@@ -1,0 +1,36 @@
+{
+  "MainMenu": {
+    "home": "Home",
+    "about": "About"
+  },
+  "Search": {
+    "label": "Search",
+    "placeholder": "Search items...",
+    "button": "Search"
+  },
+  "RefreshData": {
+    "button": "Refresh data"
+  },
+  "Pagination": {
+    "button-prev": "Prev",
+    "button-next": "Next"
+  },
+  "TestError": {
+    "error": "Test error",
+    "button": "Error Button"
+  },
+  "SelectedItems": {
+    "button-unselect": "Unselect all",
+    "button-download": "Download"
+  },
+
+  "About": {
+    "heading": "Michael Elsky",
+    "link-github": "GitHub",
+    "link-rs": "RS School React course"
+  },
+  "NotFound": {
+    "heading": "404 - Page not found",
+    "button": "Go Back"
+  }
+}

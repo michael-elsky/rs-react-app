@@ -5,6 +5,7 @@ import classes from './SelectedItems.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../store'
 import { selectedItemsActions } from '../../store/selected-items-slice'
+import { useTranslations } from 'next-intl'
 
 const SelectedItems = () => {
   const dispatch = useDispatch()
@@ -12,6 +13,8 @@ const SelectedItems = () => {
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items,
   )
+
+  const t = useTranslations('SelectedItems')
 
   const { unSelectAll } = selectedItemsActions
 
@@ -45,9 +48,9 @@ const SelectedItems = () => {
 
   return (
     <div className={classes['app__selected-items']}>
-      <button onClick={handleUnSelectAll}>Unselect all</button>
+      <button onClick={handleUnSelectAll}>{t('button-unselect')}</button>
       <span>Selected: {selectedItems?.length}</span>
-      <button onClick={handleDownload}>Download</button>
+      <button onClick={handleDownload}>{t('button-download')}</button>
     </div>
   )
 }

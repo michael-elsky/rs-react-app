@@ -4,9 +4,11 @@ import Link from 'next/link'
 import classes from './MainMenu.module.css'
 
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 const MainMenu = () => {
   const pathname = usePathname()
+  const t = useTranslations('MainMenu')
 
   return (
     <ul className={classes.app_menu}>
@@ -19,7 +21,7 @@ const MainMenu = () => {
               : classes['app__menu-link']
           }
         >
-          Home
+          {t('home')}
         </Link>
       </li>
       <li>
@@ -31,7 +33,7 @@ const MainMenu = () => {
               : classes['app__menu-link']
           }
         >
-          About
+          {t('about')}
         </Link>
       </li>
     </ul>

@@ -5,9 +5,12 @@ import classes from './TestError.module.css'
 import { useState } from 'react'
 
 import Button from '../Ui/Button/Button'
+import { useTranslations } from 'next-intl';
 
 const TestError = () => {
   const [isError, setIsError] = useState(false)
+
+  const t = useTranslations('TestError')
 
   const handleClick = () => {
     setIsError(true)
@@ -20,7 +23,7 @@ const TestError = () => {
   return (
     <div className={classes['app__test-error']}>
       <Button className={classes['app__error-btn']} onClick={handleClick}>
-        Error Button
+        {t('button')}
       </Button>
     </div>
   )

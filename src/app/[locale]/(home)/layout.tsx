@@ -1,19 +1,19 @@
 'use client'
 
-import Search from '../../components/Search'
-import Result from '../../components/Result'
-import TestError from '../../components/TestError'
-
-import usePagination from '../../hooks/Pagination/usePagination'
-import Pagination from '../../components/Pagination/Pagination'
 import { useSelector } from 'react-redux'
-import type { RootState } from '../../store'
-import SelectedItems from '../../components/SelectedItems/SelectedItems'
-import { useGetFilmsQuery } from '../../store/api'
-import errorMessageType from '../../utils/errorMessageType'
-import RefreshData from '../../components/RefreshData/RefreshData'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { ResultProps } from '@/components/Result/Result.types';
+import { useSearchParams } from 'next/navigation'
+import { ResultProps } from '@/components/Result/Result.types'
+import Search from '@/components/Search'
+import Result from '@/components/Result'
+import TestError from '@/components/TestError'
+import usePagination from '@/hooks/Pagination/usePagination'
+import Pagination from '@/components/Pagination/Pagination'
+import { RootState } from '@/store'
+import SelectedItems from '@/components/SelectedItems/SelectedItems'
+import { useGetFilmsQuery } from '@/store/api'
+import errorMessageType from '@/utils/errorMessageType'
+import RefreshData from '@/components/RefreshData/RefreshData'
+import { useRouter } from '@/i18n/routing';
 
 const Home = ({ children }: ResultProps) => {
   const router = useRouter()

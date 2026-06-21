@@ -1,11 +1,9 @@
 'use client'
 
-// import { useRouteError } from 'react-router-dom'
 import ErrorDisplay from '../ErrorDisplay/ErrorDisplay'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/routing'
 
 const RouterError = () => {
-  // const error = useRouteError()
   const router = useRouter()
 
   const handleResetError = () => {

@@ -1,16 +1,19 @@
+import { useTranslations } from 'next-intl'
 import classes from './About.module.css'
 
 const About = () => {
+  const t = useTranslations('About')
+
   return (
     <section>
-      <h1 className={classes['app__about-header']}>Michael Elsky</h1>
+      <h1 className={classes['app__about-header']}>{t('heading')}</h1>
       <p>
         <a
           href="https://github.com/michael-elsky"
           target="_blank"
           rel="noopener"
         >
-          GitHub
+          {t('link-github')}
         </a>
       </p>
       <p>
@@ -19,7 +22,7 @@ const About = () => {
           target="_blank"
           rel="noopener"
         >
-          RS School React course
+          {t('link-rs')}
         </a>
       </p>
     </section>

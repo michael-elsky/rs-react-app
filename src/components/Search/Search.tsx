@@ -5,12 +5,13 @@ import classes from './Search.module.css'
 import { ChangeEvent, SyntheticEvent, useState } from 'react'
 
 import Button from '../Ui/Button/Button'
+import { useRouter } from '@/i18n/routing'
 
 import {
   getLocalStorageData,
   saveLocalStorageData,
 } from '../../utils/localStorageData'
-import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 const Search = () => {
   const initialSearchValue = getLocalStorageData() || ''
@@ -19,6 +20,8 @@ const Search = () => {
   const [savedSearchValue, setSavedSearchValue] = useState(initialSearchValue)
 
   const router = useRouter()
+
+  const t = useTranslations('Search')
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
@@ -41,18 +44,18 @@ const Search = () => {
   return (
     <form className={classes.app__form} onSubmit={handleSubmit}>
       <label className={classes.app__label} htmlFor="searchInput">
-        Search
+        {t('label')}
       </label>
       <input
         className={classes.app__input}
         type="text"
         id="searchInput"
         name="searchInput"
-        placeholder="Search items..."
+        placeholder={t('placeholder')}
         value={inputValue}
         onChange={handleChange}
       />
-      <Button className={classes['app__search-btn']}>Search</Button>
+      <Button className={classes['app__search-btn']}>{t('button')}</Button>
     </form>
   )
 }
