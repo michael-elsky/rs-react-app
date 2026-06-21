@@ -1,0 +1,30 @@
+.app_menu {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.app_menu li {
+  list-style-type: none;
+}
+
+.app__menu-link {
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--gray-7E);
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .app__menu-link:hover {
+    text-decoration: underline;
+  }
+}
+
+.app__menu-link--active {
+  text-decoration: underline;
+}

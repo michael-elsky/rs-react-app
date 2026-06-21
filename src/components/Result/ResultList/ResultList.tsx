@@ -1,11 +1,13 @@
-import { NavLink, useMatch, useSearchParams } from 'react-router-dom'
 import classes from './ResultList.module.css'
 import type { ResultListProps } from './ResultList.types'
 import CheckBox from './CheckBox/CheckBox'
+import Link from 'next/link'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 const ResultList = ({ data, onClose }: ResultListProps) => {
-  const isDetailsPage = useMatch('/films/:itemId')
-  const [searchParams] = useSearchParams()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const isDetailsPage = pathname.startsWith('/films/')
 
   const currentPage = searchParams.get('page') || 1
 
@@ -32,16 +34,16 @@ const ResultList = ({ data, onClose }: ResultListProps) => {
             <section className={classes['app__result-section']}>
               <CheckBox item={item} />
 
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
+              <Link
+                href={`/films/${filmId}?page=${currentPage}`}
+                className={
+                  pathname === `/films/${filmId}`
                     ? `${classes['app__result-link']} ${classes['app__result-link--active']}`
                     : classes['app__result-link']
                 }
-                to={`/films/${filmId}?page=${currentPage}`}
               >
                 <h1 className={classes['app__result-title']}>{item.title}</h1>
-              </NavLink>
+              </Link>
             </section>
           </li>
         )

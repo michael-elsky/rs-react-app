@@ -1,0 +1,13 @@
+.app__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: var(--gray-7E);
+}
+
+.app__pagination-btn-prev,
+.app__pagination-btn-next {
+  width: 50px;
+  height: 30px;
+}

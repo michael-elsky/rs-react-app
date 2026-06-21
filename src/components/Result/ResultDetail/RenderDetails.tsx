@@ -1,14 +1,14 @@
-import { useParams } from 'react-router-dom'
+'use client'
+
 import classes from './ResultDetails.module.css'
 import RenderContent from '../renderContent'
 import { useGetFilmDetailsQuery } from '../../../store/api'
 import errorMessageType from '../../../utils/errorMessageType'
 
-const ResultDetails = () => {
-  const { itemId } = useParams()
+const ResultDetails = ({ filmId }: {filmId: string}) => {
 
   const { data, isLoading, isFetching, error } = useGetFilmDetailsQuery(
-    itemId || '',
+    filmId || '',
   )
 
   const errorMessage = errorMessageType(error)

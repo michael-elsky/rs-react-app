@@ -1,0 +1,15 @@
+.app__test-error {
+  outline: 1px solid var(--gray-E2);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.app__error-btn {
+  background: var(--red-D3);
+}
+
+@media (hover: hover) {
+  .app__error-btn:hover {
+    background: var(--red-DC);
+  }
+}

@@ -1,0 +1,19 @@
+.app__selected-items {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: auto;
+}
+
+.app__selected-items button:disabled {
+  background: #000;
+}
+
+.app__selected-items span {
+  color: var(--gray-7E);
+}

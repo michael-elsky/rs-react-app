@@ -1,3 +1,5 @@
-export default function Home() {
-  return 1
+const page = () => {
+  return null
 }
+
+export default page
