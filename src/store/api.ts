@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const CACHE_TTL = Number(import.meta.env.VITE_CACHE_TTL ?? 60);
+const CACHE_TTL = Number(process.env.NEXT_PUBLIC_CACHE_TTL ?? 60)
 
 export const api = createApi({
   reducerPath: 'api',

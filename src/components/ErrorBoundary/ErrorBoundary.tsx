@@ -1,3 +1,5 @@
+'use client'
+
 import { Component, type ErrorInfo } from 'react'
 import type { ChildrenProp } from '../../types/types'
 import ErrorDisplay from '../ErrorDisplay/ErrorDisplay'

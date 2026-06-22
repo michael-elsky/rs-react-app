@@ -1,3 +1,5 @@
+'use client'
+
 import classes from './ErrorDisplay.module.css'
 
 import type { ErrorDisplayProps } from './ErrorDisplay.types'

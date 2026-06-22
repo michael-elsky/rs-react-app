@@ -1,9 +1,13 @@
-import { useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+'use client'
+
+import { useRouter, usePathname } from '@/i18n/routing';
 import type { PaginationData } from './usePagination.types'
+import { useSearchParams } from 'next/navigation';
 
 const usePagination = (data: PaginationData) => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
 
   const dataChecked = Array.isArray(data) ? data : []
 
@@ -16,21 +20,23 @@ const usePagination = (data: PaginationData) => {
   const paginatedData =
     dataChecked.length > 0 ? dataChecked.slice(startIndex, endIndex) : []
 
-  useEffect(() => {
-    if (!searchParams.get('page')) {
-      setSearchParams({ page: String(currentPage) })
-    }
-  }, [searchParams, currentPage, setSearchParams])
-
   const handleNext = () => {
     if (currentPage < totalPages) {
-      setSearchParams({ page: String(currentPage + 1) })
+      const params = new URLSearchParams(searchParams.toString())
+
+      params.set('page', String(currentPage + 1))
+
+      router.push(`${pathname}?${params.toString()}`)
     }
   }
 
   const handlePrev = () => {
     if (currentPage > 1) {
-      setSearchParams({ page: String(currentPage - 1) })
+      const params = new URLSearchParams(searchParams.toString())
+
+      params.set('page', String(currentPage - 1))
+
+      router.push(`${pathname}?${params.toString()}`)
     }
   }
 

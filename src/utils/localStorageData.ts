@@ -3,6 +3,7 @@ export const saveLocalStorageData = (searchInputValue: string) => {
 }
 
 export const getLocalStorageData = () => {
+  if (typeof window === 'undefined') return ''
   return localStorage.getItem('savedInputValue')
 }
 

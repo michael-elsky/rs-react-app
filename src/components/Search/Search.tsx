@@ -1,28 +1,30 @@
-import Button from '../Ui/Button/Button'
 import classes from './Search.module.css'
 
-import type { SearchProps } from './Search.types'
+import Button from '../Ui/Button/Button'
 
-const Search = ({
-  handleSubmit,
-  handleChange,
-  searchInputValue,
-}: SearchProps) => {
+import { useLocale, useTranslations } from 'next-intl'
+import { handleSearchAction } from '@/actions/search'
+
+const Search = ({ initialValue }: { initialValue?: string }) => {
+  const t = useTranslations('Search')
+  const locale = useLocale()
+
   return (
-    <form className={classes.app__form} onSubmit={handleSubmit}>
+    <form className={classes.app__form} action={handleSearchAction}>
+      <input type="hidden" name="locale" value={locale} />
+
       <label className={classes.app__label} htmlFor="searchInput">
-        Search
+        {t('label')}
       </label>
       <input
         className={classes.app__input}
         type="text"
         id="searchInput"
         name="searchInput"
-        placeholder="Search items..."
-        value={searchInputValue}
-        onChange={handleChange}
+        placeholder={t('placeholder')}
+        defaultValue={initialValue}
       />
-      <Button className={classes['app__search-btn']}>Search</Button>
+      <Button className={classes['app__search-btn']}>{t('button')}</Button>
     </form>
   )
 }

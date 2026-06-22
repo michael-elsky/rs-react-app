@@ -1,15 +1,29 @@
-import { useParams } from 'react-router-dom'
+'use client'
+
 import classes from './ResultDetails.module.css'
 import RenderContent from '../renderContent'
 import { useGetFilmDetailsQuery } from '../../../store/api'
 import errorMessageType from '../../../utils/errorMessageType'
+import { DataProps } from '../Result.types'
 
-const ResultDetails = () => {
-  const { itemId } = useParams()
-
-  const { data, isLoading, isFetching, error } = useGetFilmDetailsQuery(
-    itemId || '',
+const ResultDetails = ({
+  filmId,
+  initialData,
+}: {
+  filmId: string
+  initialData?: DataProps[]
+}) => {
+  const {
+    data: clientData,
+    isLoading,
+    isFetching,
+    error,
+  } = useGetFilmDetailsQuery(
+    filmId,
+    { skip: !!initialData }, // Пропускаем запрос, если данные уже есть
   )
+
+  const data = initialData || clientData;
 
   const errorMessage = errorMessageType(error)
   const isFilmsLoading = isLoading || isFetching

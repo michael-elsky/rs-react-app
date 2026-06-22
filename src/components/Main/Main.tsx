@@ -1,3 +1,5 @@
+'use client'
+
 import classes from './Main.module.css'
 
 import type { ChildrenProp } from '../../types/types'

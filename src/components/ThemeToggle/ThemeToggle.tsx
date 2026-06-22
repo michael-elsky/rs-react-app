@@ -1,8 +1,10 @@
+'use client'
+
 import classes from './ThemeToggle.module.css'
 
 import Button from '../Ui/Button/Button'
 import { useContext } from 'react'
-import { ThemeContext } from '../../context/ThemeContext'
+import { ThemeContext } from '@/providers/context/ThemeContext'
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useContext(ThemeContext)

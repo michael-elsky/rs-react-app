@@ -1,0 +1,12 @@
+.app__404-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.app__404-title {
+  text-align: center;
+  color: var(--gray-7E);
+}
