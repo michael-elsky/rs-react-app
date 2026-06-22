@@ -22,28 +22,30 @@ const SelectedItems = () => {
     dispatch(unSelectAll())
   }
 
-  const handleDownload = () => {
-    const headers = 'Title,Description,URL'
-    const csvItems = selectedItems.map((item) => {
-      return `${item.title},${item.opening_crawl},${item.url}`
+  const handleDownload = async () => {
+    if (selectedItems.length === 0) return
+
+    const response = await fetch('/api/csv', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ items: selectedItems }),
     })
 
-    const csvContent = [headers, ...csvItems].join('\n')
+    if (response.ok) {
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
 
-    const blob = new Blob([csvContent], {
-      type: 'text/csv',
-    })
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `${selectedItems.length}_items.csv`
+      link.click()
 
-    const url = URL.createObjectURL(blob)
-
-    const link = document.createElement('a')
-
-    link.href = url
-    link.download = `${selectedItems?.length}_items.csv`
-
-    link.click()
-
-    setTimeout(() => URL.revokeObjectURL(url), 0)
+      window.URL.revokeObjectURL(url)
+    } else {
+      console.error('Failed to download CSV. Status:', response.status)
+    }
   }
 
   return (
