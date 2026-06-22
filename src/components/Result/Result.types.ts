@@ -7,11 +7,10 @@ export interface DataProps {
   url?: string
 }
 
-export interface ResultProps extends ChildrenProp{
-  initialData?: DataProps[] | null
-  searchValue?: string,
+export interface ResultProps extends ChildrenProp {
+  searchValue?: string
   data?: DataProps[] | null
   isLoading?: boolean
   errorMessage?: string
-  onClose?: () => void
+  onClose: () => void
 }

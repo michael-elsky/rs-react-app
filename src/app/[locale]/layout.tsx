@@ -9,6 +9,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle'
 import Main from '@/components/Main'
+import { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: 'Server Side Rendering',
@@ -19,8 +20,8 @@ export default async function RootLayout({
   children,
   params,
 }: Readonly<{
-  children: React.ReactNode
-  params: { locale: string }
+  children: ReactNode
+  params: Promise<{ locale: string }>
 }>) {
   const { locale } = await params
   const messages = await getMessages()

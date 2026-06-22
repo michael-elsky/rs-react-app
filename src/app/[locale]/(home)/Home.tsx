@@ -2,7 +2,6 @@
 
 import { useSelector } from 'react-redux'
 import { useSearchParams } from 'next/navigation'
-import { ResultProps } from '@/components/Result/Result.types'
 import Search from '@/components/Search'
 import Result from '@/components/Result'
 import TestError from '@/components/TestError'
@@ -14,8 +13,9 @@ import { useGetFilmsQuery } from '@/store/api'
 import errorMessageType from '@/utils/errorMessageType'
 import RefreshData from '@/components/RefreshData/RefreshData'
 import { useRouter } from '@/i18n/routing'
+import { HomeProps } from './Home.types';
 
-const Home = ({ children, initialData, searchValue }: ResultProps) => {
+const Home = ({ children, initialData, searchValue }: HomeProps) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
