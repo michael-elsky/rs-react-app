@@ -8,6 +8,7 @@ import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle'
+import Main from '@/components/Main'
 
 export const metadata: Metadata = {
   title: 'Server Side Rendering',
@@ -34,7 +35,9 @@ export default async function RootLayout({
 
           <MainMenu />
 
-          <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>
+            <Main>{children}</Main>
+          </StoreProvider>
         </NextIntlClientProvider>
       </body>
     </html>
