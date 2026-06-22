@@ -1,48 +1,18 @@
-'use client'
-
 import classes from './Search.module.css'
 
-import { ChangeEvent, SyntheticEvent, useState } from 'react'
-
 import Button from '../Ui/Button/Button'
-import { useRouter } from '@/i18n/routing'
 
-import {
-  getLocalStorageData,
-  saveLocalStorageData,
-} from '../../utils/localStorageData'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+import { handleSearchAction } from '@/actions/search'
 
-const Search = () => {
-  const initialSearchValue = getLocalStorageData() || ''
-
-  const [inputValue, setInputValue] = useState(initialSearchValue)
-  const [savedSearchValue, setSavedSearchValue] = useState(initialSearchValue)
-
-  const router = useRouter()
-
+const Search = ({ initialValue }: { initialValue?: string }) => {
   const t = useTranslations('Search')
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
-
-  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const trimmedEnteredSearchValue = inputValue.trim()
-
-    if (savedSearchValue !== trimmedEnteredSearchValue) {
-      setSavedSearchValue(trimmedEnteredSearchValue)
-
-      saveLocalStorageData(trimmedEnteredSearchValue)
-
-      router.push(`/?search=${trimmedEnteredSearchValue}`)
-    }
-  }
+  const locale = useLocale()
 
   return (
-    <form className={classes.app__form} onSubmit={handleSubmit}>
+    <form className={classes.app__form} action={handleSearchAction}>
+      <input type="hidden" name="locale" value={locale} />
+
       <label className={classes.app__label} htmlFor="searchInput">
         {t('label')}
       </label>
@@ -52,8 +22,7 @@ const Search = () => {
         id="searchInput"
         name="searchInput"
         placeholder={t('placeholder')}
-        value={inputValue}
-        onChange={handleChange}
+        defaultValue={initialValue}
       />
       <Button className={classes['app__search-btn']}>{t('button')}</Button>
     </form>

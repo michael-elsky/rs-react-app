@@ -15,7 +15,7 @@ import errorMessageType from '@/utils/errorMessageType'
 import RefreshData from '@/components/RefreshData/RefreshData'
 import { useRouter } from '@/i18n/routing'
 
-const Home = ({ children, initialData }: ResultProps) => {
+const Home = ({ children, initialData, searchValue }: ResultProps) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -32,7 +32,9 @@ const Home = ({ children, initialData }: ResultProps) => {
 
   const data = initialData || clientData
   
-  const { paginatedData, handleNext, handlePrev } = usePagination(data)
+  const dataForPagination = Array.isArray(data) ? data : data?.results || []
+
+  const { paginatedData, handleNext, handlePrev } = usePagination(dataForPagination)
 
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items,
@@ -46,7 +48,7 @@ const Home = ({ children, initialData }: ResultProps) => {
 
   return (
     <>
-      <Search />
+      <Search initialValue={searchValue} />
 
       <RefreshData />
 

@@ -1,5 +1,6 @@
-interface PageProps {
-  searchParams: Promise<{ [key: string]: string | undefined }>
+export interface PageProps {
+  params?: Promise<{ [key: string]: string | string[] }>
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export default PageProps

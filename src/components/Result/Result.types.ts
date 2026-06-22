@@ -9,6 +9,7 @@ export interface DataProps {
 
 export interface ResultProps extends ChildrenProp{
   initialData?: DataProps[] | null
+  searchValue?: string,
   data?: DataProps[] | null
   isLoading?: boolean
   errorMessage?: string

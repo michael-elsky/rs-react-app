@@ -1,13 +1,23 @@
-'use client'
-
+import { getFilms, getFilm } from '@/services/api'
+import Home from '../../Home'
 import ResultDetails from '@/components/Result/ResultDetail/RenderDetails'
-import { useParams } from 'next/navigation'
+import PageProps from './page.types'
 
-const Details = () => {
-  const params = useParams()
-  const filmId = String(params.itemId)
+const DetailsPage = async ({ params, searchParams }: PageProps) => {
+  const { itemId } = await params
+  const sParams = await searchParams
+  const search = (sParams?.search as string) || ''
 
-  return <>{filmId && <ResultDetails filmId={filmId} />}</>
+  const [filmsData, filmDetails] = await Promise.all([
+    getFilms(search),
+    getFilm(itemId),
+  ])
+
+  return (
+    <Home initialData={filmsData} searchValue={search}>
+      <ResultDetails filmId={itemId} initialData={filmDetails} />
+    </Home>
+  )
 }
 
-export default Details
+export default DetailsPage
