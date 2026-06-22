@@ -4,7 +4,6 @@ import './global.css'
 import StoreProvider from '@/providers/StoreProvider'
 import type { Metadata } from 'next'
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
-import ThemeContextProvider from '@/providers/context/ThemeContext'
 
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
@@ -26,20 +25,18 @@ export default async function RootLayout({
   const messages = await getMessages()
 
   return (
-    <ThemeContextProvider>
-      <html lang={locale}>
-        <body>
-          <ThemeToggle />
+    <html lang={locale}>
+      <body>
+        <ThemeToggle />
 
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            <LanguageToggle />
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <LanguageToggle />
 
-            <MainMenu />
+          <MainMenu />
 
-            <StoreProvider>{children}</StoreProvider>
-          </NextIntlClientProvider>
-        </body>
-      </html>
-    </ThemeContextProvider>
+          <StoreProvider>{children}</StoreProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   )
 }
